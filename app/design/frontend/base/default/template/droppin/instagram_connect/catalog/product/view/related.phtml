@@ -1,0 +1,65 @@
+<?php
+/**
+ * Droppin
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade InstagramConnect to newer
+ * versions in the future.
+ *
+ * @category    Droppin
+ * @package     Droppin_InstagramConnect
+ * @copyright   Copyright (c) 2012 Droppin LLC
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+?>
+<?php
+    $_product = Mage::registry('current_product');
+    if($_product){
+        $productId =  $_product->getId();      
+    }
+    $helper = Mage::helper('instagramconnect');
+    $checkLimit = 0;
+    $limitProduct = $helper->getProductPageLimit();
+    if($limitProduct == 0){
+        $checkLimit = 1;
+    }
+    $collectionApproved =  Mage::getModel('instagramconnect/instagramimage')->getCollection()
+                        ->addFilter('is_approved', 1)
+                        ->addFilter('is_visible', 1)
+                        ->addFilter('product_instagram',$productId);
+
+?>
+<?php if(count($collectionApproved) && $helper->showImagesOnProductPage() && $helper->isEnabled()): ?>
+<div class="block block-instagram block-related ">
+    <div class="block-title">
+        <strong><span><?php echo $this->__('Instagram Images') ?></span></strong>
+    </div>
+    <div class="block-content">
+        
+        <ol class="mini-products-list" id="block-related">
+        <?php $i = 0; ?>
+        <?php foreach($collectionApproved as $_item): ?>
+            <?php if($i == $limitProduct && !$checkLimit) : break; endif; ?>
+            <li class="item">
+                <h3><?php echo $_item->getTag() ?></h3>
+                <div class="product">
+                    <a target="_blank" href="<?php echo $_item->getLinkInstagram() ?>" title="<?php echo $_item->getTag()?>" class="product-image"><img src="<?php echo $_item->getStandardResolutionUrl() ?>" width="90" height="90" alt="<?php echo $this->htmlEscape($_item->getTag()) ?>" /></a>
+                    
+                </div>
+            </li>
+            <?php $i++; ?>
+        <?php endforeach ?>
+        </ol>
+        <script type="text/javascript">decorateList('block-related', 'none-recursive')</script>
+    </div>
+    
+</div>
+<?php endif ?>
