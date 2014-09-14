@@ -1,0 +1,69 @@
+<?php
+/**
+ * @project     SocialLogin
+ * @package     LitExtension_SocialLogin
+ * @author      LitExtension
+ * @email       litextension@gmail.com
+ */
+?>
+<div id="content-images">
+<?php echo '' ;?>
+</div>
+<?php $checkFb = 0; ?>
+<?php $customer = Mage::getSingleton('customer/session')->getCustomer(); ?>
+<?php $idFacebook = $customer->getLeSocialloginFid(); ?>
+<?php
+    if($idFacebook){
+        $checkFb = 1;
+    }
+?>
+<script>
+var checkFb = '<?php echo $checkFb ?>';
+if(checkFb == '1'){
+   friendsUpdate(); 
+}
+
+function friendsUpdate() {
+    new Ajax.Request("<?php echo $this->getUrl('le_sociallogin/facebook/getUserFriends'); ?>", {
+                parameters: {
+                    method: 'POST',
+                    dataType : 'json'
+                },
+                onSuccess: function(transport) {
+                    //alert(transport.responseText);
+                    try{
+                        response = eval('(' + transport.responseText + ')');
+                        
+                    } catch (e) {
+                        response = {};
+                    }
+                    if (response.err) {
+                        alert("1");
+                    }
+                    if (response.success) {
+                        //$('content-images').replace('<div id="content-images"></div>');
+                        $('content-images').insert(response.data);
+                    } else {
+                        // var msg = response.error_messages;
+                        // if (typeof(msg)=='object') {
+                        //     msg = msg.join("\n");
+                        // }
+                        // if (msg) {
+                        //     $('review-please-wait').hide();
+                        //     alert(msg);
+                        //     return;
+                        // }
+                    }
+                    //$('review-please-wait').hide();
+                    
+                    //alert("2");
+                    return;
+                },
+                onFailure: function(){
+                    alert("3");
+                    //$('review-please-wait').hide();
+                }
+            });
+            return false;
+        }
+</script>

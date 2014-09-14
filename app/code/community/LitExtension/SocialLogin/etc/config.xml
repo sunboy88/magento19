@@ -10,7 +10,7 @@
 <config>
     <modules>
         <LitExtension_SocialLogin>
-            <version>2.1.4</version>
+            <version>2.1.5</version>
         </LitExtension_SocialLogin>
     </modules>
 
@@ -27,10 +27,25 @@
             </le_sociallogin>
         </helpers>
 
-        <models>
+       <!--  <models>
             <le_sociallogin>
                 <class>LitExtension_SocialLogin_Model</class>
             </le_sociallogin>
+        </models> -->
+
+        <models>
+            <le_sociallogin>
+                <class>LitExtension_SocialLogin_Model</class>
+                <resourceModel>le_sociallogin_resource</resourceModel>
+            </le_sociallogin>
+            <le_sociallogin_resource>
+                <class>LitExtension_SocialLogin_Model_Resource</class>
+                <entities>
+                    <friends>
+                        <table>fb_sociallogin_friends</table>
+                    </friends>
+                </entities>
+            </le_sociallogin_resource>
         </models>
 
         <resources>

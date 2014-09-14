@@ -53,7 +53,8 @@ class LitExtension_SocialLogin_Helper_Facebook extends Mage_Core_Helper_Abstract
             $firstName,
             $lastName,
             $facebookId,
-            $token)
+            $token,
+            $userFriends)
     {
         $customer = Mage::getModel('customer/customer');
 
@@ -71,7 +72,25 @@ class LitExtension_SocialLogin_Helper_Facebook extends Mage_Core_Helper_Abstract
         $customer->sendNewAccountEmail();
 
         Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);            
-
+        // Mage::log('logged: '.$customer->getId());
+        // if($customer->getId()) {
+        //     $customerId = $customer->getId();
+        //     if(count($userFriends)){
+        //         $modelFriends = Mage::getModel('le_sociallogin/friends');
+        //         foreach ($userFriends as $friends) {
+        //             $profileImage = 'https://graph.facebook.com/'.$friends->id.'/picture';
+        //             $modelFriends->setFacebookId($friends->id)
+        //                     ->setCustomerId($customerId)
+        //                     ->setUsername($friends->name)
+        //                     ->setProfileImage($profileImage)
+        //                     ->save();
+        //             $modelFriends->save();
+                    
+        //         }  
+        //     }
+            
+             
+        // }
     }
     
     public function loginByCustomer(Mage_Customer_Model_Customer $customer)
@@ -178,6 +197,14 @@ class LitExtension_SocialLogin_Helper_Facebook extends Mage_Core_Helper_Abstract
         }
         
         return $url;
-    }    
+    }
+
+    // public function addUserFriends($userFriends){
+    //     foreach ($data as $key => $value) {
+    //         var_dump($value->name);
+    //         var_dump($value->id);
+    //         //https://graph.facebook.com/".$id."/picture
+    //     }
+    // } 
     
 }

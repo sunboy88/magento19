@@ -121,13 +121,61 @@ class LitExtension_SocialLogin_Model_Facebook_Client
     {
         return Mage::getUrl('le_sociallogin/facebook/request', array("mainw_protocol" => $this->protocol));
     }
-
+    public function apiGetFriends(){
+        $url = self::OAUTH2_SERVICE_URI.'/me/friends';
+        $method = 'GET';
+        $method = strtoupper($method);
+        $params = array();
+        $accessToken = '';
+        $customer = Mage::getSingleton('customer/session')->getCustomer();
+        $idFacebook = $customer->getLeSocialloginFid();
+        
+        if($idFacebook){
+            $access = $customer->getLeSocialloginFtoken();
+           
+            $obj = json_decode($access);
+            
+            $accessToken = $obj->access_token;
+            
+        }
+        if($accessToken == ''){
+            return;
+        }
+        $params = array_merge(array(
+            'access_token' => $accessToken
+        ), $params);
+        //var_dump($this->token->access_token);die('')
+        $response = $this->_httpRequest($url, $method, $params);
+        $dataFriends = $response->data;
+        // foreach ($data as $key => $value) {
+        //     var_dump($value->name);
+        //     var_dump($value->id);
+        // https://graph.facebook.com/".$id."/picture
+        // }
+        //var_dump($dataFriends);die('123');
+        return $dataFriends;
+    }
     public function api($endpoint, $method = 'GET', $params = array())
     {
         if(empty($this->token)) {
             $this->fetchAccessToken();
         }
+        // $url = self::OAUTH2_SERVICE_URI.'/me/friends';
+        // $method = 'GET';
+        // $method = strtoupper($method);
+        // $params = array();
+        // $params = array_merge(array(
+        //     'access_token' => $this->token->access_token
+        // ), $params);
 
+        // $response = $this->_httpRequest($url, $method, $params);
+        // $dataFriends = $response->data;
+        // var_dump($dataFriends);die('111111');
+        // foreach ($data as $key => $value) {
+        //     var_dump($value->name);
+        //     var_dump($value->id);
+        // https://graph.facebook.com/".$id."/picture
+        // }
         $url = self::OAUTH2_SERVICE_URI.$endpoint;
 
         $method = strtoupper($method);
@@ -140,7 +188,7 @@ class LitExtension_SocialLogin_Model_Facebook_Client
 
         return $response;
     }
-
+    
     protected function fetchAccessToken()
     {
         if(empty($_REQUEST['code'])) {

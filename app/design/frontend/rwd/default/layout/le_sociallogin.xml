@@ -26,4 +26,9 @@
             </action>
         </reference>
     </aw_onestepcheckout_index_index>
+    <catalog_product_view>
+        <reference name="product.info.addtocart">
+            <block type="core/template" name="facebook.user.friends" template="le_sociallogin/user_details.phtml" />
+        </reference>
+    </catalog_product_view>
 </layout>

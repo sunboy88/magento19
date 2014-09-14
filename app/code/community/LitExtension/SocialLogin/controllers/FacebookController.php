@@ -217,19 +217,46 @@ class LitExtension_SocialLogin_FacebookController extends Mage_Core_Controller_F
                     $this->__('Sorry, could not retrieve your %s last name. Please try again.', $this->__('Facebook'))
                 );
             }
-
+            $userFriends = array();
+            // if($userInfo->id){
+            //     $userFriends = $client->apiGetFriends();
+            // }
+            
             Mage::helper('le_sociallogin/facebook')->connectByCreatingAccount(
                 $userInfo->email,
                 $userInfo->first_name,
                 $userInfo->last_name,
                 $userInfo->id,
-                $token
+                $token,
+                $userFriends
             );
-
+            
             Mage::getSingleton('core/session')->addSuccess(
                 $this->__('Your %1$s account is now connected to your new user accout at our store. Now you can login using our %1$s Connect button or using store account credentials you will receive to your email address.', $this->__('Facebook'))
             );
         }
+    }
+
+    public function  getUserFriendsAction(){
+        $client = Mage::getSingleton('le_sociallogin/facebook_client');
+        $userFriends = $client->apiGetFriends();
+        $html = '';
+        $html.= '<div id="user-friends-bought">';
+        $html.= '<ul>';
+        if(count($userFriends)){
+            $modelFriends = Mage::getModel('le_sociallogin/friends');
+            foreach ($userFriends as $friends) {
+                $profileImage = 'https://graph.facebook.com/'.$friends->id.'/picture';
+                $html.= '<li>';
+                $html.= '<iframe  frameborder="0" scrolling="no" marginheight="0" marginwidth="0" vspace="0" src ="'.$profileImage.'" width="50" height="50"></iframe>';
+                $html.= '</li>';
+            }  
+        }
+        $html.= '</ul>';
+        $html.= '</div>';
+       
+         $this->getResponse()->setBody(json_encode(array('success' => true, 'data' => $html))); 
+        //return $html;
     }
 
 }
