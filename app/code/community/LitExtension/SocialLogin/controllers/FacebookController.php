@@ -240,22 +240,42 @@ class LitExtension_SocialLogin_FacebookController extends Mage_Core_Controller_F
     public function  getUserFriendsAction(){
         $client = Mage::getSingleton('le_sociallogin/facebook_client');
         $userFriends = $client->apiGetFriends();
+        $check = 0;
         $html = '';
         $html.= '<div id="user-friends-bought">';
         $html.= '<ul>';
+        
+        $productId = (int)$this->getRequest()->getPost('productId');
         if(count($userFriends)){
-            $modelFriends = Mage::getModel('le_sociallogin/friends');
+
             foreach ($userFriends as $friends) {
-                $profileImage = 'https://graph.facebook.com/'.$friends->id.'/picture';
-                $html.= '<li>';
-                $html.= '<iframe  frameborder="0" scrolling="no" marginheight="0" marginwidth="0" vspace="0" src ="'.$profileImage.'" width="50" height="50"></iframe>';
-                $html.= '</li>';
+                $customersByFacebookId = Mage::helper('le_sociallogin/facebook')
+                ->getCustomersByFacebookId($friends->id);
+                if ($customersByFacebookId->count()) {
+                    foreach ($customersByFacebookId as $customer) {
+                        $customerId = $customer->getId();
+                    }
+                    
+                    $checkBought = Mage::helper('le_sociallogin/facebook')->checkCustomerAlsoBought($productId,$customerId);
+                    if($checkBought){
+                        $profileImage = 'https://graph.facebook.com/'.$friends->id.'/picture';
+                        $html.= '<li>';
+                        $html.= '<img title="'.$friends->name.'" alt="'.$friends->name.'" scrolling="no"  src ="'.$profileImage.'" width="50" height="50"></img>';
+                        $html.= '</li>';
+                        $check = 1;    
+                    }
+                    
+                }
+                
             }  
         }
         $html.= '</ul>';
         $html.= '</div>';
-       
+        if(!$check){
+            $html = '';
+        }
          $this->getResponse()->setBody(json_encode(array('success' => true, 'data' => $html))); 
+        
         //return $html;
     }
 

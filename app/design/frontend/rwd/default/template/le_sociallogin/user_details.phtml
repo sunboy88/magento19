@@ -6,8 +6,8 @@
  * @email       litextension@gmail.com
  */
 ?>
+<br /><br />
 <div id="content-images">
-<?php echo '' ;?>
 </div>
 <?php $checkFb = 0; ?>
 <?php $customer = Mage::getSingleton('customer/session')->getCustomer(); ?>
@@ -17,17 +17,33 @@
         $checkFb = 1;
     }
 ?>
+<?php
+    $productId = 0;
+    $currentProduct = Mage::registry('current_product');
+    if($currentProduct){
+        $productId = $currentProduct->getId();
+    }
+    
+?>
 <script>
 var checkFb = '<?php echo $checkFb ?>';
+var productId = '<?php echo $productId ?>';
 if(checkFb == '1'){
    friendsUpdate(); 
 }
-
+// document.observe("dom:loaded", function() {
+//   // initially hide all containers for tab content
+//   var imgs = $('content-images div').getElementsBySelector('img');
+//   imgs.each(function(img) {
+//     img.setAttribute('alt','1111111');
+//   });
+// });
 function friendsUpdate() {
     new Ajax.Request("<?php echo $this->getUrl('le_sociallogin/facebook/getUserFriends'); ?>", {
                 parameters: {
                     method: 'POST',
-                    dataType : 'json'
+                    dataType : 'json',
+                    productId : productId
                 },
                 onSuccess: function(transport) {
                     //alert(transport.responseText);

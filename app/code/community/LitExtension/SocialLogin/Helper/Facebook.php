@@ -127,6 +127,24 @@ class LitExtension_SocialLogin_Helper_Facebook extends Mage_Core_Helper_Abstract
 
         return $collection;
     }
+
+    public function checkCustomerAlsoBought($productId,$customerId){
+        $collectionOrders = Mage::getModel("sales/order")->getCollection()
+                   ->addAttributeToSelect('*')
+                   ->addFieldToFilter('customer_id', $customerId);
+        if(count($collectionOrders)){
+            foreach ($collectionOrders as $order) {
+                $items = $order->getAllItems();
+                foreach ($items as $item) {
+                    //var_dump($productId);var_dump($customerId); die('3232');
+                    if($item->getProductId() == $productId){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
     
     public function getCustomersByEmail($email)
     {
