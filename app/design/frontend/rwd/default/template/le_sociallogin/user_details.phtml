@@ -9,6 +9,7 @@
 <br /><br />
 <div id="content-images">
 </div>
+
 <?php $checkFb = 0; ?>
 <?php $customer = Mage::getSingleton('customer/session')->getCustomer(); ?>
 <?php $idFacebook = $customer->getLeSocialloginFid(); ?>
@@ -82,4 +83,8 @@ function friendsUpdate() {
             });
             return false;
         }
+        
+
+
+
 </script>

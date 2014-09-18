@@ -271,6 +271,15 @@ class LitExtension_SocialLogin_FacebookController extends Mage_Core_Controller_F
         }
         $html.= '</ul>';
         $html.= '</div>';
+        $html.= '<div id="content-popup" class="white-popup mfp-hide"></div>';
+        $html.= '<a href="#content-popup" class="open-popup-link">Show inline popup</a>';
+        $html.= '<script>';
+        $html.= 'jQuery("#content-popup").html(jQuery("#user-friends-bought").html());' ;
+        $html.='jQuery(".open-popup-link").magnificPopup({
+                    type:"inline",
+                    midClick: true
+                    });';
+        $html.= '</script>';
         if(!$check){
             $html = '';
         }
