@@ -241,6 +241,7 @@ class LitExtension_SocialLogin_FacebookController extends Mage_Core_Controller_F
         $client = Mage::getSingleton('le_sociallogin/facebook_client');
         $userFriends = $client->apiGetFriends();
         $check = 0;
+        $count = 0;
         $html = '';
         $html.= '<div id="user-friends-bought">';
         $html.= '<ul>';
@@ -262,7 +263,8 @@ class LitExtension_SocialLogin_FacebookController extends Mage_Core_Controller_F
                         $html.= '<li>';
                         $html.= '<img title="'.$friends->name.'" alt="'.$friends->name.'" scrolling="no"  src ="'.$profileImage.'" width="50" height="50"></img>';
                         $html.= '</li>';
-                        $check = 1;    
+                        $check = 1;
+                        $count++;
                     }
                     
                 }
@@ -272,10 +274,10 @@ class LitExtension_SocialLogin_FacebookController extends Mage_Core_Controller_F
         $html.= '</ul>';
         $html.= '</div>';
         $html.= '<div id="content-popup" class="white-popup mfp-hide"></div>';
-        $html.= '<a href="#content-popup" class="open-popup-link">Show inline popup</a>';
+        $html.= '<div href="#content-popup" id="fb-popup-link"><span>+'.$count.'</span></div>';
         $html.= '<script>';
         $html.= 'jQuery("#content-popup").html(jQuery("#user-friends-bought").html());' ;
-        $html.='jQuery(".open-popup-link").magnificPopup({
+        $html.='jQuery("#fb-popup-link").magnificPopup({
                     type:"inline",
                     midClick: true
                     });';
