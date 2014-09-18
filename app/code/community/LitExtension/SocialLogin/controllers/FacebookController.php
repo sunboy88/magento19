@@ -245,7 +245,7 @@ class LitExtension_SocialLogin_FacebookController extends Mage_Core_Controller_F
         $html = '';
         $html.= '<div id="user-friends-bought">';
         $html.= '<ul>';
-        
+        $max = 3;
         $productId = (int)$this->getRequest()->getPost('productId');
         if(count($userFriends)){
 
@@ -258,14 +258,65 @@ class LitExtension_SocialLogin_FacebookController extends Mage_Core_Controller_F
                     }
                     
                     $checkBought = Mage::helper('le_sociallogin/facebook')->checkCustomerAlsoBought($productId,$customerId);
-                    if($checkBought){
-                        $profileImage = 'https://graph.facebook.com/'.$friends->id.'/picture';
-                        $html.= '<li>';
-                        $html.= '<img title="'.$friends->name.'" alt="'.$friends->name.'" scrolling="no"  src ="'.$profileImage.'" width="50" height="50"></img>';
-                        $html.= '</li>';
+                    //if($checkBought){
+                        if($count <= $max-1){
+                            $profileImage = 'https://graph.facebook.com/'.$friends->id.'/picture';
+                            $html.= '<li>';
+                            $html.= '<img title="'.$friends->name.'" alt="'.$friends->name.'" scrolling="no"  src ="'.$profileImage.'" width="50" height="50"></img>';
+                            $html.= '</li>';
+                            $html.= '<li>';
+                            $html.= '<img title="'.$friends->name.'" alt="'.$friends->name.'" scrolling="no"  src ="'.$profileImage.'" width="50" height="50"></img>';
+                            $html.= '</li>';
+                            $html.= '<li>';
+                            $html.= '<img title="'.$friends->name.'" alt="'.$friends->name.'" scrolling="no"  src ="'.$profileImage.'" width="50" height="50"></img>';
+                            $html.= '</li>';
+                            $html.= '<li style="display:none">';
+                            $html.= '<img title="'.$friends->name.'" alt="'.$friends->name.'" scrolling="no"  src ="'.$profileImage.'" width="50" height="50"></img>';
+                            $html.= '</li>';
+                            $html.= '<li style="display:none">';
+                            $html.= '<img title="'.$friends->name.'" alt="'.$friends->name.'" scrolling="no"  src ="'.$profileImage.'" width="50" height="50"></img>';
+                            $html.= '</li>';
+                            $html.= '<li style="display:none">';
+                            $html.= '<img title="'.$friends->name.'" alt="'.$friends->name.'" scrolling="no"  src ="'.$profileImage.'" width="50" height="50"></img>';
+                            $html.= '</li>';
+                            $html.= '<li style="display:none">';
+                            $html.= '<img title="'.$friends->name.'" alt="'.$friends->name.'" scrolling="no"  src ="'.$profileImage.'" width="50" height="50"></img>';
+                            $html.= '</li>';
+                            $html.= '<li style="display:none">';
+                            $html.= '<img title="'.$friends->name.'" alt="'.$friends->name.'" scrolling="no"  src ="'.$profileImage.'" width="50" height="50"></img>';
+                            $html.= '</li>';
+                            $html.= '<li style="display:none">';
+                            $html.= '<img title="'.$friends->name.'" alt="'.$friends->name.'" scrolling="no"  src ="'.$profileImage.'" width="50" height="50"></img>';
+                            $html.= '</li>';
+                            $html.= '<li style="display:none">';
+                            $html.= '<img title="'.$friends->name.'" alt="'.$friends->name.'" scrolling="no"  src ="'.$profileImage.'" width="50" height="50"></img>';
+                            $html.= '</li>';
+                            $html.= '<li style="display:none">';
+                            $html.= '<img title="'.$friends->name.'" alt="'.$friends->name.'" scrolling="no"  src ="'.$profileImage.'" width="50" height="50"></img>';
+                            $html.= '</li>';
+                            $html.= '<li style="display:none">';
+                            $html.= '<img title="'.$friends->name.'" alt="'.$friends->name.'" scrolling="no"  src ="'.$profileImage.'" width="50" height="50"></img>';
+                            $html.= '</li>';
+                            $html.= '<li style="display:none">';
+                            $html.= '<img title="'.$friends->name.'" alt="'.$friends->name.'" scrolling="no"  src ="'.$profileImage.'" width="50" height="50"></img>';
+                            $html.= '</li>';
+                            $html.= '<li style="display:none">';
+                            $html.= '<img title="'.$friends->name.'" alt="'.$friends->name.'" scrolling="no"  src ="'.$profileImage.'" width="50" height="50"></img>';
+                            $html.= '</li>';
+                            $html.= '<li style="display:none">';
+                            $html.= '<img title="'.$friends->name.'" alt="'.$friends->name.'" scrolling="no"  src ="'.$profileImage.'" width="50" height="50"></img>';
+                            $html.= '</li>';
+                             
+                        }else{
+                            $profileImage = 'https://graph.facebook.com/'.$friends->id.'/picture';
+                            $html.= '<li style="display:none">';
+                            $html.= '<img title="'.$friends->name.'" alt="'.$friends->name.'" scrolling="no"  src ="'.$profileImage.'" width="50" height="50"></img>';
+                            $html.= '</li>';
+                        }
                         $check = 1;
-                        $count++;
-                    }
+                        $count++; 
+                        
+                    //}
                     
                 }
                 
@@ -277,6 +328,9 @@ class LitExtension_SocialLogin_FacebookController extends Mage_Core_Controller_F
         $html.= '<div href="#content-popup" id="fb-popup-link"><span>+'.$count.'</span></div>';
         $html.= '<script>';
         $html.= 'jQuery("#content-popup").html(jQuery("#user-friends-bought").html());' ;
+        $html.= 'jQuery("#content-popup ul li").each(function(){
+            jQuery(this).show();
+        });';
         $html.='jQuery("#fb-popup-link").magnificPopup({
                     type:"inline",
                     midClick: true
