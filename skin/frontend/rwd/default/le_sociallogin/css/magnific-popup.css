@@ -390,8 +390,15 @@ img.mfp-img {
   display: inline-block;
 }
 
-#fb-popup-link span
-{
-  font-size: 18px;
-  text-align: center;
+#fb-popup-link span{
+    display: block;
+    font-size: 18px;
+    line-height: 50px;
+    text-align: center;
+    width: 100%;
 }
+
+#user-friends-bought{clear: both;max-width: 275px;}
+#user-friends-bought > span{font: normal 14px Arial;color: #000;}
+.catalog-product-view #content-popup ul li,
+#user-friends-bought li{display: inline-block;margin: 0 5px 5px 0;}
