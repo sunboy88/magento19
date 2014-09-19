@@ -243,7 +243,7 @@ class LitExtension_SocialLogin_FacebookController extends Mage_Core_Controller_F
         $check = 0;
         $count = 0;
         $html = '';
-        $html.= '<div id="user-friends-bought">';
+        $html.= '<div id="user-friends-bought"><span>'.$this->__('Your friends have bought').'</span>';
         $html.= '<ul>';
         $max = 3;
         $productId = (int)$this->getRequest()->getPost('productId');
@@ -252,7 +252,7 @@ class LitExtension_SocialLogin_FacebookController extends Mage_Core_Controller_F
             foreach ($userFriends as $friends) {
                 $customersByFacebookId = Mage::helper('le_sociallogin/facebook')
                 ->getCustomersByFacebookId($friends->id);
-                if ($customersByFacebookId->count()) {
+                //if ($customersByFacebookId->count()) {
                     foreach ($customersByFacebookId as $customer) {
                         $customerId = $customer->getId();
                     }
@@ -318,7 +318,7 @@ class LitExtension_SocialLogin_FacebookController extends Mage_Core_Controller_F
                         
                     //}
                     
-                }
+                //}
                 
             }  
         }
