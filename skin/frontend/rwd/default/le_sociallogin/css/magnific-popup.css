@@ -388,6 +388,7 @@ img.mfp-img {
   width: auto;
   height: 50px;
   display: inline-block;
+    vertical-align: top;
 }
 
 #fb-popup-link span{
@@ -398,7 +399,9 @@ img.mfp-img {
     width: 100%;
 }
 
-#user-friends-bought{clear: both;max-width: 275px;}
-#user-friends-bought > span{font: normal 14px Arial;color: #000;}
+#content-images{clear: both;max-width: 330px;margin-left: -81px;}
+#user-friends-bought > span,
+.catalog-product-view #content-popup > span{font: normal 12px Arial;color: #000;display: block;margin: 0 0 5px;}
 .catalog-product-view #content-popup ul li,
 #user-friends-bought li{display: inline-block;margin: 0 5px 5px 0;}
+#user-friends-bought,#user-friends-bought ul{display: inline;}
