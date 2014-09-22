@@ -243,7 +243,7 @@ class LitExtension_SocialLogin_FacebookController extends Mage_Core_Controller_F
         $check = 0;
         $count = 0;
         $html = '';
-        $html.= '<div id="user-friends-bought">';
+        $html.= '<div id="user-friends-bought"><span>'.$this->__('Your friends have bought').'</span>';
         $html.= '<ul>';
         $max = 3;
         $productId = (int)$this->getRequest()->getPost('productId');
@@ -258,55 +258,12 @@ class LitExtension_SocialLogin_FacebookController extends Mage_Core_Controller_F
                     }
                     
                     $checkBought = Mage::helper('le_sociallogin/facebook')->checkCustomerAlsoBought($productId,$customerId);
-                    //if($checkBought){
+                    if($checkBought){
                         if($count <= $max-1){
                             $profileImage = 'https://graph.facebook.com/'.$friends->id.'/picture';
                             $html.= '<li>';
                             $html.= '<img title="'.$friends->name.'" alt="'.$friends->name.'" scrolling="no"  src ="'.$profileImage.'" width="50" height="50"></img>';
                             $html.= '</li>';
-                            $html.= '<li>';
-                            $html.= '<img title="'.$friends->name.'" alt="'.$friends->name.'" scrolling="no"  src ="'.$profileImage.'" width="50" height="50"></img>';
-                            $html.= '</li>';
-                            $html.= '<li>';
-                            $html.= '<img title="'.$friends->name.'" alt="'.$friends->name.'" scrolling="no"  src ="'.$profileImage.'" width="50" height="50"></img>';
-                            $html.= '</li>';
-                            $html.= '<li style="display:none">';
-                            $html.= '<img title="'.$friends->name.'" alt="'.$friends->name.'" scrolling="no"  src ="'.$profileImage.'" width="50" height="50"></img>';
-                            $html.= '</li>';
-                            $html.= '<li style="display:none">';
-                            $html.= '<img title="'.$friends->name.'" alt="'.$friends->name.'" scrolling="no"  src ="'.$profileImage.'" width="50" height="50"></img>';
-                            $html.= '</li>';
-                            $html.= '<li style="display:none">';
-                            $html.= '<img title="'.$friends->name.'" alt="'.$friends->name.'" scrolling="no"  src ="'.$profileImage.'" width="50" height="50"></img>';
-                            $html.= '</li>';
-                            $html.= '<li style="display:none">';
-                            $html.= '<img title="'.$friends->name.'" alt="'.$friends->name.'" scrolling="no"  src ="'.$profileImage.'" width="50" height="50"></img>';
-                            $html.= '</li>';
-                            $html.= '<li style="display:none">';
-                            $html.= '<img title="'.$friends->name.'" alt="'.$friends->name.'" scrolling="no"  src ="'.$profileImage.'" width="50" height="50"></img>';
-                            $html.= '</li>';
-                            $html.= '<li style="display:none">';
-                            $html.= '<img title="'.$friends->name.'" alt="'.$friends->name.'" scrolling="no"  src ="'.$profileImage.'" width="50" height="50"></img>';
-                            $html.= '</li>';
-                            $html.= '<li style="display:none">';
-                            $html.= '<img title="'.$friends->name.'" alt="'.$friends->name.'" scrolling="no"  src ="'.$profileImage.'" width="50" height="50"></img>';
-                            $html.= '</li>';
-                            $html.= '<li style="display:none">';
-                            $html.= '<img title="'.$friends->name.'" alt="'.$friends->name.'" scrolling="no"  src ="'.$profileImage.'" width="50" height="50"></img>';
-                            $html.= '</li>';
-                            $html.= '<li style="display:none">';
-                            $html.= '<img title="'.$friends->name.'" alt="'.$friends->name.'" scrolling="no"  src ="'.$profileImage.'" width="50" height="50"></img>';
-                            $html.= '</li>';
-                            $html.= '<li style="display:none">';
-                            $html.= '<img title="'.$friends->name.'" alt="'.$friends->name.'" scrolling="no"  src ="'.$profileImage.'" width="50" height="50"></img>';
-                            $html.= '</li>';
-                            $html.= '<li style="display:none">';
-                            $html.= '<img title="'.$friends->name.'" alt="'.$friends->name.'" scrolling="no"  src ="'.$profileImage.'" width="50" height="50"></img>';
-                            $html.= '</li>';
-                            $html.= '<li style="display:none">';
-                            $html.= '<img title="'.$friends->name.'" alt="'.$friends->name.'" scrolling="no"  src ="'.$profileImage.'" width="50" height="50"></img>';
-                            $html.= '</li>';
-                             
                         }else{
                             $profileImage = 'https://graph.facebook.com/'.$friends->id.'/picture';
                             $html.= '<li style="display:none">';
@@ -316,7 +273,7 @@ class LitExtension_SocialLogin_FacebookController extends Mage_Core_Controller_F
                         $check = 1;
                         $count++; 
                         
-                    //}
+                    }
                     
                 }
                 

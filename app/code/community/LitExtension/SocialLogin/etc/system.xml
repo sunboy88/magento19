@@ -10,14 +10,14 @@
 <config>
     <tabs>
         <litextension translate="label">
-            <label>LitExtension</label>
+            <label>Facebook Extension</label>
             <sort_order>2000</sort_order>
         </litextension>
     </tabs>
 
     <sections>
         <le_sociallogin>
-            <label>Social Login</label>
+            <label>Facebook Extension</label>
             <tab>litextension</tab>
             <frontend_type>text</frontend_type>
             <sort_order>100</sort_order>
