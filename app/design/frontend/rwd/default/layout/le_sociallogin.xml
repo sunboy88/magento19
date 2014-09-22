@@ -26,6 +26,14 @@
             </action>
         </reference>
     </aw_onestepcheckout_index_index>
+    <firecheckout_index_index>
+        <block type="le_sociallogin/button" name="le.sociallogin.aw" />
+        <reference name="content">
+            <action ifconfig="le_sociallogin/general/showoncheckout" method="insert">
+                <block>le.sociallogin.aw</block>
+            </action>
+        </reference>
+    </firecheckout_index_index>
     <catalog_product_view>
         <reference name="head">
             <action method="addItem"><type>skin_css</type><name>le_sociallogin/css/magnific-popup.css</name><params/></action>
