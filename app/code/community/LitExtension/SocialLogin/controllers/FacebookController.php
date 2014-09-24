@@ -140,8 +140,17 @@ class LitExtension_SocialLogin_FacebookController extends Mage_Core_Controller_F
             $userInfo = $client->api('/me');
             $token = $client->getAccessToken();
 
+            $realId = '';//$client->apiGetRealId();
+           // var_dump($realId);die('333');
+            $userId = '';
+            if($realId != ''){
+                $userId = $realId;
+            }else{
+                $userId = $userInfo->id;
+            }
+
             $customersByFacebookId = Mage::helper('le_sociallogin/facebook')
-                ->getCustomersByFacebookId($userInfo->id);
+                ->getCustomersByFacebookId($userId);
 
             if (Mage::getSingleton('customer/session')->isLoggedIn()) {
                 // Logged in user
@@ -160,7 +169,7 @@ class LitExtension_SocialLogin_FacebookController extends Mage_Core_Controller_F
 
                 Mage::helper('le_sociallogin/facebook')->connectByFacebookId(
                     $customer,
-                    $userInfo->id,
+                    $userId,
                     $token
                 );
 
@@ -187,14 +196,13 @@ class LitExtension_SocialLogin_FacebookController extends Mage_Core_Controller_F
 
             $customersByEmail = Mage::helper('le_sociallogin/facebook')
                 ->getCustomersByEmail($userInfo->email);
-
             if ($customersByEmail->count()) {
                 // Email account already exists - attach, login
                 $customer = $customersByEmail->getFirstItem();
 
                 Mage::helper('le_sociallogin/facebook')->connectByFacebookId(
                     $customer,
-                    $userInfo->id,
+                    $userId,
                     $token
                 );
 
@@ -221,12 +229,12 @@ class LitExtension_SocialLogin_FacebookController extends Mage_Core_Controller_F
             // if($userInfo->id){
             //     $userFriends = $client->apiGetFriends();
             // }
-            
+
             Mage::helper('le_sociallogin/facebook')->connectByCreatingAccount(
                 $userInfo->email,
                 $userInfo->first_name,
                 $userInfo->last_name,
-                $userInfo->id,
+                $userId,
                 $token,
                 $userFriends
             );

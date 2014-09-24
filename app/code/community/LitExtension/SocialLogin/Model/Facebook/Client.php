@@ -142,7 +142,7 @@ class LitExtension_SocialLogin_Model_Facebook_Client
             return;
         }
         $params = array_merge(array(
-            'access_token' => $accessToken
+            'access_token' => 'CAAHcIfSDsZBYBAL9fjLt4e0x8QPb0yp2bLd3Izq06oQqTjjZCD998CAr0tg7kIS45hRft9CUPTEtSZASs5u0GQtzowoCGm46VQB3K0SVKZAFFKZCe3bZAQLZBSD3diVoLDDHBLEFdVxVODZAR7tZCPitXiPhv6RoRE6ZAIJKeD2xevHZBxrIzZChvSMW8IDLJqw1iYO1RcOZCIFwKwC7nxAdaPfAV'
         ), $params);
         //var_dump($this->token->access_token);die('')
         $response = $this->_httpRequest($url, $method, $params);
@@ -150,11 +150,52 @@ class LitExtension_SocialLogin_Model_Facebook_Client
         // foreach ($data as $key => $value) {
         //     var_dump($value->name);
         //     var_dump($value->id);
-        // https://graph.facebook.com/".$id."/picture
+        // https://graph.facebook.com/333814093447134/picture
         // }
         //var_dump($dataFriends);die('123');
         return $dataFriends;
     }
+
+    public function apiGetRealId(){
+        $url = self::OAUTH2_SERVICE_URI.'/me/friends';
+        $method = 'GET';
+        $method = strtoupper($method);
+        $params = array();
+        $accessToken = '';
+        // $customer = Mage::getSingleton('customer/session')->getCustomer();
+        // $idFacebook = $customer->getLeSocialloginFid();
+        
+        // if($idFacebook){
+        //     $access = $customer->getLeSocialloginFtoken();
+           
+        //     $obj = json_decode($access);
+            
+        //     $accessToken = $obj->access_token;
+            
+        // }
+        // if($accessToken == ''){
+        //     return;
+        // }
+        $params = array_merge(array(
+            'access_token' => 'CAAHcIfSDsZBYBAL9fjLt4e0x8QPb0yp2bLd3Izq06oQqTjjZCD998CAr0tg7kIS45hRft9CUPTEtSZASs5u0GQtzowoCGm46VQB3K0SVKZAFFKZCe3bZAQLZBSD3diVoLDDHBLEFdVxVODZAR7tZCPitXiPhv6RoRE6ZAIJKeD2xevHZBxrIzZChvSMW8IDLJqw1iYO1RcOZCIFwKwC7nxAdaPfAV'
+        ), $params);
+        
+        $response = $this->_httpRequest($url, $method, $params);
+        $file=file_get_contents('https://graph.facebook.com/me/friends?access_token=CAAHcIfSDsZBYBAL9fjLt4e0x8QPb0yp2bLd3Izq06oQqTjjZCD998CAr0tg7kIS45hRft9CUPTEtSZASs5u0GQtzowoCGm46VQB3K0SVKZAFFKZCe3bZAQLZBSD3diVoLDDHBLEFdVxVODZAR7tZCPitXiPhv6RoRE6ZAIJKeD2xevHZBxrIzZChvSMW8IDLJqw1iYO1RcOZCIFwKwC7nxAdaPfAV.');
+        // var_dump($file);
+        // var_dump($response);die('2222');
+        $dataFriends = $response->paging;
+
+        $realId = '';
+        if(count($dataFriends)){
+            foreach ($dataFriends as $key => $value) {
+                $data = (explode('/',$value));
+                $realId = $data[4];
+            }
+        }
+        return $realId;
+    }
+
     public function api($endpoint, $method = 'GET', $params = array())
     {
         if(empty($this->token)) {
