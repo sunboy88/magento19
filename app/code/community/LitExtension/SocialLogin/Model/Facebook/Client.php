@@ -23,7 +23,7 @@ class LitExtension_SocialLogin_Model_Facebook_Client
     protected $clientSecret = null;
     protected $redirectUri = null;
     protected $state = '';
-    protected $scope = array('email', 'user_birthday');
+    protected $scope = array('email', 'user_birthday' , 'user_friends');
 
     protected $token = null;
     protected $protocol = "http";
@@ -152,7 +152,7 @@ class LitExtension_SocialLogin_Model_Facebook_Client
         //     var_dump($value->id);
         // https://graph.facebook.com/333814093447134/picture
         // }
-        //var_dump($dataFriends);die('123');
+        //var_dump($dataFriends);//die('123');
         return $dataFriends;
     }
 
@@ -226,7 +226,7 @@ class LitExtension_SocialLogin_Model_Facebook_Client
         ), $params);
 
         $response = $this->_httpRequest($url, $method, $params);
-
+        //var_dump($response);die('31111');
         return $response;
     }
     
