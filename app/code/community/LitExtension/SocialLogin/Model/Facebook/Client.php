@@ -142,7 +142,7 @@ class LitExtension_SocialLogin_Model_Facebook_Client
             return;
         }
         $params = array_merge(array(
-            'access_token' => 'CAAHcIfSDsZBYBAL9fjLt4e0x8QPb0yp2bLd3Izq06oQqTjjZCD998CAr0tg7kIS45hRft9CUPTEtSZASs5u0GQtzowoCGm46VQB3K0SVKZAFFKZCe3bZAQLZBSD3diVoLDDHBLEFdVxVODZAR7tZCPitXiPhv6RoRE6ZAIJKeD2xevHZBxrIzZChvSMW8IDLJqw1iYO1RcOZCIFwKwC7nxAdaPfAV'
+            'access_token' => $accessToken
         ), $params);
         //var_dump($this->token->access_token);die('')
         $response = $this->_httpRequest($url, $method, $params);
@@ -177,7 +177,7 @@ class LitExtension_SocialLogin_Model_Facebook_Client
         //     return;
         // }
         $params = array_merge(array(
-            'access_token' => 'CAAHcIfSDsZBYBAL9fjLt4e0x8QPb0yp2bLd3Izq06oQqTjjZCD998CAr0tg7kIS45hRft9CUPTEtSZASs5u0GQtzowoCGm46VQB3K0SVKZAFFKZCe3bZAQLZBSD3diVoLDDHBLEFdVxVODZAR7tZCPitXiPhv6RoRE6ZAIJKeD2xevHZBxrIzZChvSMW8IDLJqw1iYO1RcOZCIFwKwC7nxAdaPfAV'
+            'access_token' => $accessToken
         ), $params);
         
         $response = $this->_httpRequest($url, $method, $params);
