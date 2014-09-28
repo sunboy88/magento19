@@ -20,7 +20,7 @@
             <label>Facebook Extension</label>
             <tab>litextension</tab>
             <frontend_type>text</frontend_type>
-            <sort_order>100</sort_order>
+            <sort_order>10</sort_order>
             <show_in_default>1</show_in_default>
             <show_in_website>1</show_in_website>
             <show_in_store>1</show_in_store>
@@ -88,175 +88,34 @@
                         </secret>
                     </fields>
                 </facebook>
-
-                <!-- <google translate="label" >
-                    <label>Google Connect Options</label>
-                    <frontend_type>text</frontend_type>
-                    <sort_order>40</sort_order>
-                    <show_in_default>1</show_in_default>
-                    <show_in_website>1</show_in_website>
-                    <show_in_store>1</show_in_store>
-                    <fields>
-                        <enabled translate="label comment">
-                            <label>Enabled</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>10</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </enabled>
-                        <api_key translate="label comment" >
-                            <label>Client ID</label>
-                            <frontend_type>text</frontend_type>
-                            <validate>required-entry</validate>
-                            <sort_order>20</sort_order>
-                            <depends><enabled>1</enabled></depends>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </api_key>
-                        <secret translate="label comment" >
-                            <label>Client Secret</label>
-                            <frontend_type>text</frontend_type>
-                            <validate>required-entry</validate>
-                            <sort_order>30</sort_order>
-                            <depends><enabled>1</enabled></depends>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </secret>
-                    </fields>
-                </google>
-
-                <twitter translate="label" >
-                    <label>Twitter Connect Options</label>
+                <shareorder translate="label" >
+                    <label>Facebook Share Order Setting</label>
                     <frontend_type>text</frontend_type>
                     <sort_order>50</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
                     <fields>
-                        <enabled translate="label comment">
-                            <label>Enabled</label>
-                            <comment><![CDATA[]]></comment>
+                        <enable translate="label">
+                            <label>Enable</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>10</sort_order>
+                            <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                        </enabled>
-                        <api_key translate="label comment" >
-                            <label>Consumer Key</label>
-                            <comment><![CDATA[]]></comment>
-                            <frontend_type>text</frontend_type>
-                            <validate>required-entry</validate>
-                            <sort_order>20</sort_order>
-                            <depends><enabled>1</enabled></depends>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </api_key>
-                        <secret translate="label comment" >
-                            <label>Consumer Secret</label>
-                            <comment><![CDATA[]]></comment>
-                            <frontend_type>text</frontend_type>
-                            <validate>required-entry</validate>
-                            <sort_order>30</sort_order>
-                            <depends><enabled>1</enabled></depends>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </secret>
-                    </fields>
-                </twitter>
-
-                <linkedin translate="label" >
-                    <label>Linkedin Connect Options</label>
-                    <frontend_type>text</frontend_type>
-                    <sort_order>60</sort_order>
-                    <show_in_default>1</show_in_default>
-                    <show_in_website>1</show_in_website>
-                    <show_in_store>1</show_in_store>
-                    <fields>
-                        <enabled translate="label comment">
-                            <label>Enabled</label>
-                            <comment><![CDATA[]]></comment>
+                        </enable>
+                        <facebook_enable translate="label">
+                            <label>Facebook Share</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>10</sort_order>
+                            <sort_order>2</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                        </enabled>
-                        <api_key translate="label comment" >
-                            <label>Api Key</label>
-                            <comment><![CDATA[]]></comment>
-                            <frontend_type>text</frontend_type>
-                            <validate>required-entry</validate>
-                            <sort_order>20</sort_order>
-                            <depends><enabled>1</enabled></depends>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </api_key>
-                        <secret translate="label comment" >
-                            <label>Secret Key</label>
-                            <comment><![CDATA[]]></comment>
-                            <frontend_type>text</frontend_type>
-                            <validate>required-entry</validate>
-                            <sort_order>30</sort_order>
-                            <depends><enabled>1</enabled></depends>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </secret>
+                        </facebook_enable>
                     </fields>
-                </linkedin>
-
-                <yahoo translate="label" >
-                    <label>Yahoo Connect Options</label>
-                    <frontend_type>text</frontend_type>
-                    <sort_order>70</sort_order>
-                    <show_in_default>1</show_in_default>
-                    <show_in_website>1</show_in_website>
-                    <show_in_store>1</show_in_store>
-                    <fields>
-                        <enabled translate="label comment">
-                            <label>Enabled</label>
-                            <comment><![CDATA[]]></comment>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>10</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </enabled>
-                        <api_key translate="label comment" >
-                            <label>Consumer Key</label>
-                            <comment><![CDATA[]]></comment>
-                            <frontend_type>text</frontend_type>
-                            <validate>required-entry</validate>
-                            <sort_order>20</sort_order>
-                            <depends><enabled>1</enabled></depends>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </api_key>
-                        <secret translate="label comment" >
-                            <label>Consumer Secret</label>
-                            <comment><![CDATA[]]></comment>
-                            <frontend_type>text</frontend_type>
-                            <validate>required-entry</validate>
-                            <sort_order>30</sort_order>
-                            <depends><enabled>1</enabled></depends>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </secret>
-                    </fields>
-                </yahoo> -->
+                </shareorder>          
             </groups>
         </le_sociallogin>
     </sections>

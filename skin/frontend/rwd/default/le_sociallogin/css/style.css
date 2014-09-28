@@ -19,3 +19,28 @@ div.le-socialconnect-social .col3-set .col-3 .content .le-social-button-login{;m
 .button-set{border-top: 1px solid #efefef}
 .button-bum{float: right; width: 100%;}
 .social-button{text-align: center;margin-top: 10px;}
+
+.share {
+	width: 180px;
+	float: left;		     
+	text-align: center;
+	font-size: 12px;
+	-webkit-box-shadow: 0 8px 6px -6px black;
+	-moz-box-shadow: 0 8px 6px -6px black;
+	box-shadow: 0 8px 6px -6px black;
+	border: 1px solid #ccc;
+	padding: 5px;
+	margin: 10px 10px 5px 0;
+}
+
+.share h3 {
+	font-size: 13px;
+	margin-top: 3px;
+	height: 50px;
+	overflow: hidden;
+}
+
+.twitter-share-button {
+	margin-top: 10px;
+	margin-left: 30px;
+}
