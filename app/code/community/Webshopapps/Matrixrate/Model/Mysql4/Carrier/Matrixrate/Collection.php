@@ -44,7 +44,7 @@ class Webshopapps_Matrixrate_Model_Mysql4_Carrier_Matrixrate_Collection extends 
         $this->_select->from(array("s" => $this->_shipTable))
             ->joinLeft(array("c" => $this->_countryTable), 'c.country_id = s.dest_country_id', 'iso3_code AS dest_country')
             ->joinLeft(array("r" => $this->_regionTable), 'r.region_id = s.dest_region_id', 'code AS dest_region')
-            ->joinLeft(array("t" => $this->_cityTable),'t.region_id like %s.dest_city%', 'region_id AS dest_city')
+            //->joinLeft(array("t" => $this->_cityTable),'t.region_id = s.dest_city', 'region_id AS dest_city')
             ->order(array("dest_country", "dest_region", "dest_zip"));
         $this->_setIdFieldName('pk');
         return $this;
