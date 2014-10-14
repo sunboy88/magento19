@@ -224,5 +224,66 @@
             }
         });
     }
+
+    var countryId = $('billing:country_id').getValue();
+    var regionId = $('billing:region_id').getValue();
+    var cityId = $('billing:city').getValue();
+    
+    if(countryId == 'VN' && regionId != '' && cityId != ''){
+        updateBillingCity(regionId,cityId)
+    }
+    Event.observe($("billing:country_id"),'change', function(){
+        countryId = $('billing:country_id').getValue();
+    });
+    
+    Event.observe($("billing:region_id"),'change', function(){
+
+        regionId = $('billing:region_id').getValue();
+        if(countryId == 'VN'){
+            updateBillingCity(regionId,cityId);
+        }
+    });
+    
+    
+    function updateBillingCity(regionId,cityId){
+        new Ajax.Request("<?php echo $this->getUrl('shippingcity/city/listBilling'); ?>", {
+                parameters: {
+                    regionId: regionId,
+                    cityId : cityId,
+                    method: 'POST'
+                },
+                onSuccess: function(transport) {
+
+                    try{
+                        response = eval('(' + transport.responseText + ')');
+                        
+                    } catch (e) {
+                        response = {};
+                    }
+                    if (response.err) {
+                         alert("Can not get list City");
+                    }
+                    if (response.success) {
+                        $('billing:city').replace(response.data);
+                       // alert(response.data);
+                    } else {
+                        var msg = response.error_messages;
+                        if (typeof(msg)=='object') {
+                            msg = msg.join("\n");
+                        }
+                        if (msg) {
+                            alert(msg);
+                            return;
+                        }
+                    }
+                   // alert("Unknown Error. Please try again later.");
+                    return;
+                },
+                onFailure: function(){
+                    alert("Can not get list City");
+                }
+            });
+            return false;
+    }
 //]]>
 </script>

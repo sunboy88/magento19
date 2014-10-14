@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+/**
+ * Droppin
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade SocialLogin to newer
+ * versions in the future.
+ *
+ * @category    Droppin
+ * @package     Droppin_SocialLogin
+ * @copyright   Copyright (c) 2014 Droppin LLC
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <Droppin_SocialLogin>
+            <version>1.0.0</version>
+        </Droppin_SocialLogin>
+    </modules>
+
+    <global>
+        <blocks>
+            <droppin_sociallogin>
+                <class>Droppin_SocialLogin_Block</class>
+            </droppin_sociallogin>
+        </blocks>
+
+        <helpers>
+            <droppin_sociallogin>
+                <class>Droppin_SocialLogin_Helper</class>
+            </droppin_sociallogin>
+        </helpers>
+
+       <!-- <models>
+            <droppin_sociallogin>
+                <class>Droppin_SocialLogin_Model</class>
+            </droppin_sociallogin>
+        </models> -->
+
+        <models>
+            <droppin_sociallogin>
+                <class>Droppin_SocialLogin_Model</class>
+                <resourceModel>droppin_sociallogin_resource</resourceModel>
+            </droppin_sociallogin>
+            <droppin_sociallogin_resource>
+                <class>Droppin_SocialLogin_Model_Resource</class>
+                <entities>
+                    <friends>
+                        <table>fb_sociallogin_friends</table>
+                    </friends>
+                </entities>
+            </droppin_sociallogin_resource>
+        </models>
+
+        <resources>
+            <sociallogin_setup>
+                <setup>
+                    <module>Droppin_SocialLogin</module>
+                    <class>Mage_Customer_Model_Entity_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </sociallogin_setup>
+            <droppin_sociallogin_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </droppin_sociallogin_write>
+            <droppin_sociallogin_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </droppin_sociallogin_read>
+        </resources>
+    </global>
+
+    <frontend>
+        <routers>
+            <droppin_sociallogin>
+                <use>standard</use>
+                <args>
+                    <module>Droppin_SocialLogin</module>
+                    <frontName>droppin_sociallogin</frontName>
+                </args>
+            </droppin_sociallogin>
+        </routers>
+
+        <layout>
+            <updates>
+                <droppin_sociallogin>
+                    <file>droppin_sociallogin.xml</file>
+                </droppin_sociallogin>
+            </updates>
+        </layout>
+        <translate>
+            <modules>
+                <Droppin_SocialLogin>
+                    <files>
+                        <default>Droppin_SocialLogin.csv</default>
+                    </files>
+                </Droppin_SocialLogin>
+            </modules>
+        </translate>
+    </frontend>
+
+    <default>
+        <droppin_sociallogin>
+            <general><showonloginpage>inloginbox</showonloginpage></general>
+            <general><showoncheckout>1</showoncheckout></general>
+            <facebook><enabled>0</enabled></facebook>
+        </droppin_sociallogin>
+    </default>
+
+</config>

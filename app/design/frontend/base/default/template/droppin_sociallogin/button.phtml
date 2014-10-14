@@ -1,0 +1,57 @@
+<?php
+/**
+ * Droppin
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade SocialLogin to newer
+ * versions in the future.
+ *
+ * @category    Droppin
+ * @package     Droppin_SocialLogin
+ * @copyright   Copyright (c) 2014 Droppin LLC
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+?>
+<?php
+$check_show_social = Mage::helper('droppin_sociallogin')->checkShowSociallogin();
+if($check_show_social == true && Mage::getSingleton('customer/session')->IsLoggedIn() == false):
+?>
+    <link type="text/css" rel="stylesheet" media="screen" href="<?php echo $this->getSkinUrl('droppin_sociallogin/css/style.css');?>"/>
+    <script type="text/javascript" src="<?php echo $this->getSkinUrl('droppin_sociallogin/js/sociallogin.js');?>"></script>
+    <div class="le-socialconnect-social">
+        <div class="account-login">
+            <div class="col3-set">
+                <div class="col-3 le-login-facebook">
+                    <div class="content" style="text-align: center;"><h2><?php echo $this->__('social connect')?></h2>
+                        <p><?php echo $this->__('You can login using your social network account.') ?></p>
+                        <div class="le-social-button-login">
+                            <?php
+                             if($this->getButtons()){
+                                foreach($this->getButtons() as $button){
+                                    echo $button->render();
+                                }
+                             }
+                            ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php
+    if(Mage::getSingleton('core/design_package')->getTheme('frontend') == 'iphone') { ?>
+    <style type="text/css">
+        .le-social-button-login .le-icon-social{
+            float: left;
+        }
+    </style>
+    <?php } ?>
+<?php endif;?>
