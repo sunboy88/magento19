@@ -77,7 +77,7 @@ class TTS_ShippingCity_CityController extends Mage_Core_Controller_Front_Action
         $optionsArr = Mage::getModel('shippingcity/city')->getCities($regionId);
         $values = array();
         $html = '';
-        $html.= '<select id="scity" name="city" title="City">';
+        $html.= '<select id="city" name="city" title="City">';
         $html.= '<option value="">-- Please select --</option>';
         foreach ($optionsArr as $option) {
             $values[] = array(
