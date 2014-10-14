@@ -115,8 +115,10 @@
         </div>
     </form>
     <?php if(Mage::getStoreConfig('le_sociallogin/general/showonloginpage')== 'belowloginbox'){
-        $_social = $this->getLayout()->createBlock('le_sociallogin/button');
-        echo $_social->setTemplate('le_sociallogin/button.phtml')->toHtml(); } ?>
+            $_social = $this->getLayout()->createBlock('le_sociallogin/button');
+            echo $_social->setTemplate('le_sociallogin/button.phtml')->toHtml(); 
+        } 
+    ?>
     <script type="text/javascript">
         //<![CDATA[
         var dataForm = new VarienForm('login-form', true);

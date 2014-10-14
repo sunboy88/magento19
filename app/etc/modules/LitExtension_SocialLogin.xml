@@ -11,7 +11,7 @@
 <config>
     <modules>
         <LitExtension_SocialLogin>
-            <active>true</active>
+            <active>false</active>
             <codePool>community</codePool>
         </LitExtension_SocialLogin>
     </modules>

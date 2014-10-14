@@ -9,6 +9,10 @@
 <?php
 $currentUrl = Mage::helper('core/url')->getCurrentUrl();
 $block = new LitExtension_SocialLogin_Block_Button();
+$checkAuto = 0;
+if(Mage::getStoreConfig('le_sociallogin/facebook/autologin')){
+    $checkAuto = 1;
+}
 if (Mage::getStoreConfig('le_sociallogin/general/showonloginpage') == 'inloginbox') {
     $pos = strpos($currentUrl,'customer/account/login');
     if($pos !== false) {
@@ -26,8 +30,12 @@ if (Mage::getStoreConfig('le_sociallogin/general/showonloginpage') == 'inloginbo
         <?php endif;
     }
 ?>
-    <script type="text/javascript">
-    showLESocialPopup('<?php echo $this->_getButtonUrl(); ?>', '<?php echo $this->getWidth(); ?>', '<?php echo $this->getHeight(); ?>');
+<script type="text/javascript">
+    var checkAuto = '<?php echo $checkAuto ?>';
+    if(checkAuto == '1'){
+       showLESocialPopup('<?php echo $this->_getButtonUrl(); ?>', '<?php echo $this->getWidth(); ?>', '<?php echo $this->getHeight(); ?>'); 
+    }
+    
 </script>
 <?php
 } else {
