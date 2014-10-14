@@ -1,3 +1,4 @@
+<<<<<<< HEAD:skin/frontend/base/default/droppin_sociallogin/css/style.css
 /**
  * @project     SocialLogin
  * @package     LitExtension_SocialLogin
@@ -43,4 +44,51 @@ div.le-socialconnect-social .col3-set .col-3 .content .le-social-button-login{;m
 .twitter-share-button {
 	margin-top: 10px;
 	margin-left: 30px;
+=======
+/**
+ * @project     SocialLogin
+ * @package     LitExtension_SocialLogin
+ * @author      LitExtension
+ * @email       litextension@gmail.com
+ */
+
+.le-socialconnect-social{margin-top: 10px;}
+div.le-socialconnect-social .col3-set .col-3 {width: 100%;}
+div.le-socialconnect-social .col3-set .col-3 .content {min-height: 100px;border: 1px solid #bbb6a5; margin: 10px 0;}
+div.le-socialconnect-social .col3-set .col-3 .content .le-social-button-login{;margin: 0 auto;width: 220px;padding: 10px 0;}
+/*.le-social-button-login{text-align: center;}*/
+.le-socialconnect-social .ico-fb{background: url('../images/facebook_icon.png') !important; background-repeat:no-repeat; width: 30px !important; height: 30px !important; padding: 0; border: none;}
+.le-socialconnect-social .ico-go{background: url('../images/google_plus_icon.png') !important; background-repeat:no-repeat; width: 30px !important; height: 30px !important; padding: 0; border: none;}
+.le-socialconnect-social .ico-tw{background: url('../images/twitter_icon.png') !important; background-repeat:no-repeat; width: 30px !important; height: 30px !important; padding: 0; border: none;}
+.le-socialconnect-social .ico-li{background: url('../images/linkdin_icon.png') !important; background-repeat:no-repeat; width: 30px !important; height: 30px !important; padding: 0; border: none;}
+.le-socialconnect-social .ico-yh{background: url('../images/yahoo_icon.png') !important; background-repeat:no-repeat; width: 30px !important; height: 30px !important; padding: 0; border: none;}
+.le-social-button-login .le-icon-social{ margin-right: 5px; cursor: pointer; }
+.button-set{border-top: 1px solid #efefef}
+.button-bum{float: right; width: 100%;}
+.social-button{text-align: center;margin-top: 10px;}
+
+.share {
+	width: 180px;
+	float: left;		     
+	text-align: center;
+	font-size: 12px;
+	-webkit-box-shadow: 0 8px 6px -6px black;
+	-moz-box-shadow: 0 8px 6px -6px black;
+	box-shadow: 0 8px 6px -6px black;
+	border: 1px solid #ccc;
+	padding: 5px;
+	margin: 10px 10px 5px 0;
+}
+
+.share h3 {
+	font-size: 13px;
+	margin-top: 3px;
+	height: 50px;
+	overflow: hidden;
+}
+
+.twitter-share-button {
+	margin-top: 10px;
+	margin-left: 30px;
+>>>>>>> 836960d10d2fca58d600d9749d16fcffc2ade3b2:skin/frontend/base/default/droppin_sociallogin/css/style.css
 }
