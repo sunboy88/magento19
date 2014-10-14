@@ -183,7 +183,7 @@
     });
     
     
-    function updateShippingCity(regionId,cityId){
+    function updateShippingCity(regionId,cityId){   
         new Ajax.Request("<?php echo $this->getUrl('shippingcity/city/listShipping'); ?>", {
                 parameters: {
                     regionId: regionId,
