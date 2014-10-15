@@ -19,7 +19,7 @@ class TTS_ShippingCity_CityController extends Mage_Core_Controller_Front_Action
                 'label' => $option['name']
             );
             if($cityId != ''){
-                if($cityId == $option['city_id']){
+                if($cityId == $option['name']){
                     $html.= '<option value="'.$option['name'].'" selected>'.$option['name'].'</option>';    
                 }else{
                     $html.= '<option value="'.$option['name'].'">'.$option['name'].'</option>';
@@ -52,7 +52,7 @@ class TTS_ShippingCity_CityController extends Mage_Core_Controller_Front_Action
                 'label' => $option['name']
             );
             if($cityId != ''){
-                if($cityId == $option['city_id']){
+                if($cityId == $option['name']){
                     $html.= '<option value="'.$option['name'].'" selected>'.$option['name'].'</option>';    
                 }else{
                     $html.= '<option value="'.$option['name'].'">'.$option['name'].'</option>';
