@@ -173,6 +173,13 @@
         }
     });
     
+    Event.observe($("shipping-address-select"),'change', function(){
+        var newAddress = $('shipping-address-select').getValue();
+        if(newAddress == ''){
+            updateShippingCity(regionId,cityId);
+        }
+    });
+    
     
     function updateShippingCity(regionId,cityId){
         new Ajax.Request("<?php echo $this->getUrl('shippingcity/city/listShipping'); ?>", {
