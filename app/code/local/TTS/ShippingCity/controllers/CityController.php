@@ -15,18 +15,18 @@ class TTS_ShippingCity_CityController extends Mage_Core_Controller_Front_Action
         $html.= '<option value="">-- Please select --</option>';
         foreach ($optionsArr as $option) {
             $values[] = array(
-                'value' => $option['city_id'],
+                'value' => $option['name'],
                 'label' => $option['name']
             );
             if($cityId != ''){
                 if($cityId == $option['city_id']){
-                    $html.= '<option value="'.$option['city_id'].'" selected>'.$option['name'].'</option>';    
+                    $html.= '<option value="'.$option['name'].'" selected>'.$option['name'].'</option>';    
                 }else{
-                    $html.= '<option value="'.$option['city_id'].'">'.$option['name'].'</option>';
+                    $html.= '<option value="'.$option['name'].'">'.$option['name'].'</option>';
                 }
                 
             }else{
-                $html.= '<option value="'.$option['city_id'].'">'.$option['name'].'</option>';    
+                $html.= '<option value="'.$option['name'].'">'.$option['name'].'</option>';    
             }
             
         }
@@ -48,18 +48,18 @@ class TTS_ShippingCity_CityController extends Mage_Core_Controller_Front_Action
         $html.= '<option value="">-- Please select --</option>';
         foreach ($optionsArr as $option) {
             $values[] = array(
-                'value' => $option['city_id'],
+                'value' => $option['name'],
                 'label' => $option['name']
             );
             if($cityId != ''){
                 if($cityId == $option['city_id']){
-                    $html.= '<option value="'.$option['city_id'].'" selected>'.$option['name'].'</option>';    
+                    $html.= '<option value="'.$option['name'].'" selected>'.$option['name'].'</option>';    
                 }else{
-                    $html.= '<option value="'.$option['city_id'].'">'.$option['name'].'</option>';
+                    $html.= '<option value="'.$option['name'].'">'.$option['name'].'</option>';
                 }
                 
             }else{
-                $html.= '<option value="'.$option['city_id'].'">'.$option['name'].'</option>';    
+                $html.= '<option value="'.$option['name'].'">'.$option['name'].'</option>';    
             }
             
         }
