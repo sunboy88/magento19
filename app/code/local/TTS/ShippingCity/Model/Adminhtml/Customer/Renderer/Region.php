@@ -93,6 +93,7 @@ class TTS_ShippingCity_Model_Adminhtml_Customer_Renderer_Region extends Mage_Adm
                         }
                         var citySelectorId = jQuery("#{$regionIdHtmlId}").attr('id').replace('region_id', 'city');
                         jQuery('#'+citySelectorId).replaceWith('<select id="'+citySelectorId+'" name="{$cityElementName}">'+options+'</select>');
+                        jQuery("#loading-mask").hide();
                     },
                     error: function (data) {
                         console.log("Error receiving city data");
@@ -112,7 +113,6 @@ TEXT;
 <<<TEXT
             <script type="text/javascript">
                 jQuery("#{$regionIdHtmlId}").change(function () {
-                    alert('change');
                     var regionId = jQuery(this).val();
                     var citySelectorId = jQuery(this).attr('id').replace('region_id', 'city');
                     jQuery("#loading-mask").show();
@@ -129,6 +129,7 @@ TEXT;
                                 }
                             }
                             jQuery('#'+citySelectorId).replaceWith('<select id="'+citySelectorId+'" name="{$cityElementName}">'+options+'</select>');
+                            jQuery("#loading-mask").hide();
                         },
                         error: function (data) {
                             console.log("Error receiving city data");
