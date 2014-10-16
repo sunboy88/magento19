@@ -538,8 +538,11 @@ addressesModel.prototype = {
         var regionHtmlName = this.regionElement.name;
         var regionIdHtmlName = regionHtmlName.replace(/region/, 'region_id');
         var regionHtmlId = this.regionElement.id;
+        var countryHtmlId = this.regionElement.id;
         var regionIdHtmlId = regionHtmlId.replace(/region/, 'region_id');
-        var newInputId = null; // id of imput that was added to a page - filled below
+        var countryIdHtmlId = countryHtmlId.replace(/region/, 'country_id');
+        alert(countryIdHtmlId);
+        var newInputId = null; // id of imput that was added to a page -filled below
 
         if (data.length) {
             // Create visible selectbox 'region_id' and hidden 'region'
@@ -588,6 +591,7 @@ addressesModel.prototype = {
         }
         this._checkRegionRequired([$(regionHtmlId), $(regionIdHtmlId)], activeElementId);
         Event.observe($('_item'+itemCount+'region_id'),'change', function(){
+            alert(itemCount);
             var regionId = $('_item'+itemCount+'region_id').getValue();
             var countryId = $('_item'+itemCount+'country_id').getValue();
             if(countryId == 'VN'){
