@@ -111,34 +111,7 @@ TEXT;
              */
             $html .=
 <<<TEXT
-            <script type="text/javascript">
-                jQuery("#{$regionIdHtmlId}").change(function () {
-                    var regionId = jQuery(this).val();
-                    var citySelectorId = jQuery(this).attr('id').replace('region_id', 'city');
-                    jQuery("#loading-mask").show();
-                    jQuery.ajax({
-                        url: "{$cityListUrl}?ajax=true&isAjax=true",
-                        type: "POST",
-                        data: {regionId: regionId, form_key: FORM_KEY},
-                        success: function (data) {
-                            jQuery("#loading-mask").hide();
-                            var options = '<option value="">{$pleaseSelectText}</option>';
-                            if (data.length > 0) {
-                                for (i = 0; i < data.length; i++) {
-                                    options += '<option value="' + data[i].value + '">' + data[i].label + '</option>';
-                                }
-                            }
-                            jQuery('#'+citySelectorId).replaceWith('<select id="'+citySelectorId+'" name="{$cityElementName}">'+options+'</select>');
-                            jQuery("#loading-mask").hide();
-                        },
-                        error: function (data) {
-                            console.log("Error receiving city data");
-                            console.log(data);
-                        }
-                    });
-                });
 
-        </script>
 TEXT;
 
             $html.= '</td>';

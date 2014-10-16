@@ -539,9 +539,17 @@ addressesModel.prototype = {
         var regionIdHtmlName = regionHtmlName.replace(/region/, 'region_id');
         var regionHtmlId = this.regionElement.id;
         var countryHtmlId = this.regionElement.id;
+        var cityHtmlId = this.regionElement.id;
+        var number = this.regionElement.id;
         var regionIdHtmlId = regionHtmlId.replace(/region/, 'region_id');
         var countryIdHtmlId = countryHtmlId.replace(/region/, 'country_id');
-        alert(countryIdHtmlId);
+        var cityIdHtmlId = cityHtmlId.replace(/region/, 'city');
+
+        number = number.replace(/_item/, '');
+
+        number = number.replace(/region/, '');
+
+        jQuery("#loading-mask").hide();
         var newInputId = null; // id of imput that was added to a page -filled below
 
         if (data.length) {
@@ -590,41 +598,91 @@ addressesModel.prototype = {
             activeElementId = regionIdHtmlId;
         }
         this._checkRegionRequired([$(regionHtmlId), $(regionIdHtmlId)], activeElementId);
-        Event.observe($('_item'+itemCount+'region_id'),'change', function(){
-            alert(itemCount);
-            var regionId = $('_item'+itemCount+'region_id').getValue();
-            var countryId = $('_item'+itemCount+'country_id').getValue();
-            if(countryId == 'VN'){
-                jQuery.ajax({
-                    url: "<?php echo Mage::getUrl('adminhtml/city/list') ?>",
-                    type: "POST",
-                    data: {regionId: regionId, form_key: FORM_KEY},
-                    success: function (data) {
-                        jQuery("#loading-mask").hide();
-                        cityIdValue = jQuery("#_item"+itemCount+"city").val();
-                        var options = '<option value=""><?php echo Mage::helper("customer")->__("-- Please select --") ?></option>';
-                        if (data.length > 0) {
-                            for (i = 0; i < data.length; i++) {
-                                var selected = '';
-                                if (data[i].label == cityIdValue) {
-                                    selected = ' selected="selected" ';
+       // alert($(countryIdHtmlId).getValue());
+        var check = jQuery('#'+'_item'+number+'country_id').attr('name');
+        var item = '';
+        if(check.contains("_item")){
+            item = '_item';
+        }
+        if($(countryIdHtmlId).getValue()!= 'VN'){
+            var citySelectorId = cityIdHtmlId;
+            //console.log(jQuery('#' + citySelectorId));
+           jQuery('#' + citySelectorId).replaceWith('<input id="'+citySelectorId+'" name="address['+item+number+'][city]" class=" required-entry input-text required-entry" >');
+        }else{
+            Event.observe($('_item'+number+'region_id'),'change', function(){
+               // alert('itemCount');
+                var regionId = $('_item'+number+'region_id').getValue();
+                var countryId = $('_item'+number+'country_id').getValue();
+                if(countryId == 'VN'){
+                    jQuery("#loading-mask").show();
+                    jQuery.ajax({
+                        url: "<?php echo Mage::getUrl('adminhtml/city/list') ?>",
+                        type: "POST",
+                        data: {regionId: regionId, form_key: FORM_KEY},
+                        success: function (data) {
+                            jQuery("#loading-mask").hide();
+                            cityIdValue = jQuery("#_item"+number+"city").val();
+                            var options = '<option value=""><?php echo Mage::helper("customer")->__("-- Please select --") ?></option>';
+                            if (data.length > 0) {
+                                for (i = 0; i < data.length; i++) {
+                                    var selected = '';
+                                    if (data[i].label == cityIdValue) {
+                                        selected = ' selected="selected" ';
+                                    }
+                                    options += '<option value="' + data[i].label + '"'+selected+'>' + data[i].label + '</option>';
                                 }
-                                options += '<option value="' + data[i].label + '"'+selected+'>' + data[i].label + '</option>';
                             }
+                            //console.log(options);
+                            var citySelectorId = '#_item'+number+'city';
+                            
+                            jQuery(citySelectorId).replaceWith('<select id="_item'+number+'city" name="address['+item+number+'][city]">'+options+'</select>');
+                            jQuery("#loading-mask").hide();
+                        },
+                        error: function (data) {
+                            console.log("Error receiving city data");
+                            console.log(data);
                         }
-                        console.log(options);
-                        var citySelectorId = '#_item'+itemCount+'city';
-                        console.log(citySelectorId);
-                        jQuery(citySelectorId).replaceWith('<select id="_item'+itemCount+'city" name="address[_item'+itemCount+'][city]">'+options+'</select>');
-                        jQuery("#loading-mask").hide();
-                    },
-                    error: function (data) {
-                        console.log("Error receiving city data");
-                        console.log(data);
-                    }
-                });
-            }
-        });
+                    });
+                }
+            });    
+        }
+        
+
+        // Event.observe($('_item'+itemCount+'region_id'),'change', function(){
+        //     var regionId = $('_item'+itemCount+'region_id').getValue();
+        //     var countryId = $('_item'+itemCount+'country_id').getValue();
+        //     if(countryId == 'VN'){
+        //         jQuery.ajax({
+        //             url: "<?php echo Mage::getUrl('adminhtml/city/list') ?>",
+        //             type: "POST",
+        //             data: {regionId: regionId, form_key: FORM_KEY},
+        //             success: function (data) {
+        //                 jQuery("#loading-mask").hide();
+        //                 cityIdValue = jQuery("#_item"+itemCount+"city").val();
+        //                 var options = '<option value=""><?php echo Mage::helper("customer")->__("-- Please select --") ?></option>';
+        //                 if (data.length > 0) {
+        //                     for (i = 0; i < data.length; i++) {
+        //                         var selected = '';
+        //                         if (data[i].label == cityIdValue) {
+        //                             selected = ' selected="selected" ';
+        //                         }
+        //                         options += '<option value="' + data[i].label + '"'+selected+'>' + data[i].label + '</option>';
+        //                     }
+        //                 }
+        //                 console.log(options);
+        //                 var citySelectorId = '#_item'+itemCount+'city';
+        //                 console.log(citySelectorId);
+        //                 jQuery(citySelectorId).replaceWith('<select id="_item'+itemCount+'city" name="address[_item'+itemCount+'][city]">'+options+'</select>');
+        //                 jQuery("#loading-mask").hide();
+        //             },
+        //             error: function (data) {
+        //                 console.log("Error receiving city data");
+        //                 console.log(data);
+        //             }
+        //         });
+        //     }
+        // });
+        
     },
 
     _checkRegionRequired: function(elements, activeElementId)
