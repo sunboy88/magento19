@@ -263,6 +263,7 @@
     
     
     function updateBillingCity(regionId,cityId){
+        alert(cityId);
         new Ajax.Request("<?php echo $this->getUrl('shippingcity/city/listBilling'); ?>", {
                 parameters: {
                     regionId: regionId,

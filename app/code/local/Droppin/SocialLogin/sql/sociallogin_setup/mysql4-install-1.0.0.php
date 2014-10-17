@@ -1,3 +1,4 @@
+<?php
 /**
  * Droppin
  *
@@ -18,30 +19,24 @@
  * @copyright   Copyright (c) 2014 Droppin LLC
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+$installer = $this;
+/* @var $installer Mage_Customer_Model_Entity_Setup */
 
-/* Shareorder ========================================================================== */
- 
-.share {
-	width: 180px;
-	float: left;		     
-	text-align: center;
-	font-size: 12px;
-	-webkit-box-shadow: 0 8px 6px -6px black;
-	-moz-box-shadow: 0 8px 6px -6px black;
-	box-shadow: 0 8px 6px -6px black;
-	border: 1px solid #ccc;
-	padding: 5px;
-	margin: 10px 10px 5px 0;
-}
+$installer->startSetup();
 
-.share h3 {
-	font-size: 13px;
-	margin-top: 3px;
-	height: 50px;
-	overflow: hidden;
-}
+$installer->addAttribute('customer', 'droppin_sociallogin_fid', array(
+    'type' => 'text',
+    'visible' => false,
+    'required' => false,
+    'user_defined' => false
+));
 
-.twitter-share-button {
-	margin-top: 10px;
-	margin-left: 30px;
-}
+
+$installer->addAttribute('customer', 'droppin_sociallogin_ftoken', array(
+    'type' => 'text',
+    'visible' => false,
+    'required' => false,
+    'user_defined' => false
+));
+
+$installer->endSetup();
