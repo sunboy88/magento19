@@ -21,7 +21,10 @@
  */
 ?>
 <br /><br />
-
+<?php
+ $currentUrl = $this->helper('core/url')->getCurrentUrl();
+ Mage::getSingleton('core/session')->setDetailsUrl($currentUrl);
+ ?>
 <?php $checkFb = 0; ?>
 <?php $customer = Mage::getSingleton('customer/session')->getCustomer(); ?>
 <?php $customerId = $customer->getId(); ?>

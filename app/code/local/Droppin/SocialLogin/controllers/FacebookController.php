@@ -62,8 +62,9 @@ class Droppin_SocialLogin_FacebookController extends Mage_Core_Controller_Front_
         } catch (Exception $e) {
             Mage::getSingleton('core/session')->addError($e->getMessage());
         }
+        
         if($this->referer == NULL){
-            $this->referer = Mage::getUrl('droppin_sociallogin/account/facebook');
+            $this->referer = Mage::getSingleton('core/session')->getDetailsUrl();
         }
         
       
