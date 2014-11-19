@@ -33,14 +33,22 @@
  *  getForm() - html
  */
 ?>
-
+<?php 
+    $userArray = Mage::getSingleton('admin/session')->getData();
+    $user = Mage::getSingleton('admin/session');
+    $userId = $user->getUser()->getUserId();
+?>
 <div class="content-header">
     <table cellspacing="0">
         <tr>
             <td>
                 <h3<?php if($this->getHeaderCss()): ?> class="<?php echo $this->getHeaderCss()?>"<?php endif; ?>><?php echo Mage::helper('adminhtml')->__($this->getTitle()) ?></h3>
             </td>
-            <td class="form-buttons"><?php echo $this->getSaveButtonHtml() ?></td>
+            <td class="form-buttons">
+                <?php if($userId == 1): ?>
+                    <?php echo $this->getSaveButtonHtml() ?>
+                <?php endif; ?>
+            </td>
          </tr>
     </table>
 </div>
