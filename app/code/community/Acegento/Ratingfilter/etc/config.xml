@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Acegento_Ratingfilter>
+            <version>0.1.0</version>
+        </Acegento_Ratingfilter>
+    </modules>
+    <global>
+        <models>
+            <ratingfilter>
+                <class>Acegento_Ratingfilter_Model</class>
+            </ratingfilter>
+        </models>
+        <blocks>
+            <ratingfilter>
+                <class>Acegento_Ratingfilter_Block</class>
+            </ratingfilter>
+        </blocks>
+        <helpers>
+            <ratingfilter>
+                <class>Acegento_Ratingfilter_Helper</class>
+            </ratingfilter>
+        </helpers>
+    </global>
+</config>
