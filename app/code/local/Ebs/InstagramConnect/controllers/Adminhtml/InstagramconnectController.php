@@ -91,6 +91,7 @@ class Ebs_InstagramConnect_Adminhtml_InstagramconnectController extends Mage_Adm
                                 ->addFilter('tag', $hashtags)
                                 ->setOrder('image_id', 'DESC')
                                 ->addFilter('is_visible', 1);
+                                //->setPageSize($numUpdate);
 
             $html = '';
             $max = count($collectionImages);
@@ -132,7 +133,7 @@ class Ebs_InstagramConnect_Adminhtml_InstagramconnectController extends Mage_Adm
                         $html.= '<img src="'. $image->getThumbnailUrl().'" />';
                         $html.= '<br>';
                         $html.= ' <a style="float:left;" onclick="return approveImage(\''.$image->getImageId().'\');" href="javascript:void(0);">Approve</a>';
-                        $html.= '<a style="float:right;" onclick="return deleteImage(\''. $image->getImageId().'\');" href="javascript:void(0);">Delete</a>';
+                        $html.= '<a style="float:right;" onclick="return deleteImage(\''. $image->getImageId().'\');" href="javascript:void(0);">Hide</a>';
                         $html.= '</div>';
                     if($checkDiv && ($count/20 == $numberPage) || $count == $max ){
                         Mage::log('test: '.$count/20);
@@ -149,7 +150,7 @@ class Ebs_InstagramConnect_Adminhtml_InstagramconnectController extends Mage_Adm
                         $html.= '<img src="'. $image->getThumbnailUrl().'" />';
                         $html.= '<br>';
                         $html.= ' <a style="float:left;" onclick="return approveImage(\''.$image->getImageId().'\');" href="javascript:void(0);">Approve</a>';
-                        $html.= '<a style="float:right;" onclick="return deleteImage(\''. $image->getImageId().'\');" href="javascript:void(0);">Delete</a>';
+                        $html.= '<a style="float:right;" onclick="return deleteImage(\''. $image->getImageId().'\');" href="javascript:void(0);">Hide</a>';
                         $html.= '</div>';
                     $html.= '</div>';
                 }
@@ -177,15 +178,19 @@ class Ebs_InstagramConnect_Adminhtml_InstagramconnectController extends Mage_Adm
         $collectionApproved =  Mage::getModel('instagramconnect/instagramimage')->getCollection()
                         ->addFilter('is_approved', 1)
                         ->addFilter('is_visible', 1)
-                        ->setOrder('image_id', 'DESC')
-                        ->addFilter('product_instagram',$productId);
+                        ->setOrder('image_id', 'DESC');
+                        //->addFilter('product_instagram',$productId);
+        $productInstagram = array();
         foreach ($collectionApproved as $image){
-            $html.= '<div class="item" id="'.$image->getImageId().'" style="width:150px;margin:10px; text-align:center; float:left;">';
-            $html.= '<img src="'.$image->getThumbnailUrl().'" />';
-            $html.= '<br>';
-            $html.= '<a style="float:right;" onclick="return deleteApprovedImage(\''.$image->getImageId().'\');" href="javascript:void(0);">Delete Image</a>';
-            $html.= '</div>';
-            
+            $productInstagram = explode(',',$image->getProductInstagram());
+            //var_dump($productInstagram);die('dd');
+            if(in_array($productId, $productInstagram)){
+                $html.= '<div class="item" id="'.$image->getImageId().'" style="width:150px;margin:10px; text-align:center; float:left;">';
+                $html.= '<img src="'.$image->getThumbnailUrl().'" />';
+                $html.= '<br>';
+                $html.= '<a style="float:right;" onclick="return deleteApprovedImage(\''.$image->getImageId().'\');" href="javascript:void(0);">Delete Image</a>';
+                $html.= '</div>';
+            }   
         }
         $this->getResponse()->setBody(json_encode(array('success' => true, 'data' => $html))); 
     }
@@ -194,7 +199,9 @@ class Ebs_InstagramConnect_Adminhtml_InstagramconnectController extends Mage_Adm
         $collectionApproved =  Mage::getModel('instagramconnect/instagramimage')->getCollection()
                         ->addFilter('is_approved', 1)
                         ->addFilter('is_visible', 1)
-                        ->addFilter('product_instagram',$productId);
+                        ->setOrder('image_id', 'DESC');
+                        //->addFilter('product_instagram',$productId);
+        $productInstagram = array();
         $html = '';
         $html.= '<div class="content-header">';
         $html.= '     <table cellspacing="0">';
@@ -208,11 +215,14 @@ class Ebs_InstagramConnect_Adminhtml_InstagramconnectController extends Mage_Adm
         $html.= '</div>';
         $html.= '<div id="content-images-approved">';
          foreach ($collectionApproved as $image){
-            $html.= '<div class="item" id="'.$image->getImageId().'" style="width:150px;margin:10px; text-align:center; float:left;">';
-            $html.= '<img src="'.$image->getThumbnailUrl().'" />';
-            $html.= '<br>';
-            $html.= '<a style="float:right;" onclick="return deleteApprovedImage(\''.$image->getImageId().'\');" href="javascript:void(0);">Delete Image</a>';
-            $html.= '</div>';
+            $productInstagram = explode(',',$image->getProductInstagram());
+            if(in_array($productId, $productInstagram)){
+                $html.= '<div class="item" id="'.$image->getImageId().'" style="width:150px;margin:10px; text-align:center; float:left;">';
+                $html.= '<img src="'.$image->getThumbnailUrl().'" />';
+                $html.= '<br>';
+                $html.= '<a style="float:right;" onclick="return deleteApprovedImage(\''.$image->getImageId().'\');" href="javascript:void(0);">Delete Image</a>';
+                $html.= '</div>';
+            }
             
          }
          $html.= '</div>';
@@ -298,10 +308,16 @@ class Ebs_InstagramConnect_Adminhtml_InstagramconnectController extends Mage_Adm
         $productId = $this->getRequest()->getPost('product_id');
     	
     	$image = Mage::getModel('instagramconnect/instagramimage')->load($imageId);
-    	
+    	$arrProductId = '';
     	if ($image->getId()) {
+            $productInsta = $image->getProductInstagram();
+            if($productInsta != 0){
+                $arrProductId = $productInsta . $productId . ',' ;
+            }else{
+                $arrProductId = $productId . ',';
+            }
     		$image->setIsApproved(1);
-            $image->setProductInstagram($productId);
+            $image->setProductInstagram($arrProductId);
             $image->save();
     	}
     	
@@ -326,10 +342,27 @@ class Ebs_InstagramConnect_Adminhtml_InstagramconnectController extends Mage_Adm
     	$imageId = $this->getRequest()->getPost('id');
     	$productId = $this->getRequest()->getPost('product_id');
     	$image = Mage::getModel('instagramconnect/instagramimage')->load($imageId);
-    	
+    	$newArr = '';
     	if ($image->getId()) {
-    		$image->setIsApproved(0);
-            $image->setProductInstagram(0);
+            $productInsta = $image->getProductInstagram();
+            if($productInsta != 0){
+                $arrProductId = explode(',',$productInsta);
+                foreach ($arrProductId as $pid) {
+                    if($pid != $productId){
+                        $newArr .= $pid . ',';
+                    }
+                }
+            }else{
+                $arrProductId = $productId;
+            }
+    		//$image->setIsApproved(0);
+            if($arrProductId[0] == ''){
+                $image->setProductInstagram(0);
+                $image->setIsApproved(0);
+            }else{
+                $image->setProductInstagram($newArr);
+            }
+            
             $image->save();
     	}
     	

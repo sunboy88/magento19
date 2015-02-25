@@ -217,42 +217,43 @@ function clearAll() {
 
 
 function deleteImage(id) {
-    new Ajax.Request("<?php echo $this->getUrl('instagramconnect/adminhtml_instagramconnect/delete'); ?>", {
-                parameters: {
-                    isAjax: 1, 
-                    method: 'POST', 
-                    id: id
-                },
-                onSuccess: function(transport) {
-                    try{
-                        response = eval('(' + transport.responseText + ')');
-                    } catch (e) {
-                        response = {};
-                    }
-                    if (response.success) {
-                        $(id).remove();
-                    } else {
-                        var msg = response.error_messages;
-                        if (typeof(msg)=='object') {
-                            msg = msg.join("\n");
-                        }
-                        if (msg) {
-                            $('review-please-wait').hide();
-                            alert(msg);
-                            return;
-                        }
-                    }
-                    $('review-please-wait').hide();
-                    alert("<?php echo $this->jsQuoteEscape($this->__('Unknown Error. Please try again later.')); ?>");
-                    return;
-                },
-                onFailure: function(){
-                    alert("<?php echo $this->jsQuoteEscape($this->__('Server Error. Please try again.')) ?>");
-                    $('review-please-wait').hide();
-                }
-            });
-            return false;
-        }
+    $(id).remove();
+    // new Ajax.Request("<?php echo $this->getUrl('instagramconnect/adminhtml_instagramconnect/delete'); ?>", {
+    //             parameters: {
+    //                 isAjax: 1, 
+    //                 method: 'POST', 
+    //                 id: id
+    //             },
+    //             onSuccess: function(transport) {
+    //                 try{
+    //                     response = eval('(' + transport.responseText + ')');
+    //                 } catch (e) {
+    //                     response = {};
+    //                 }
+    //                 if (response.success) {
+    //                     $(id).remove();
+    //                 } else {
+    //                     var msg = response.error_messages;
+    //                     if (typeof(msg)=='object') {
+    //                         msg = msg.join("\n");
+    //                     }
+    //                     if (msg) {
+    //                         $('review-please-wait').hide();
+    //                         alert(msg);
+    //                         return;
+    //                     }
+    //                 }
+    //                 $('review-please-wait').hide();
+    //                 alert("<?php echo $this->jsQuoteEscape($this->__('Unknown Error. Please try again later.')); ?>");
+    //                 return;
+    //             },
+    //             onFailure: function(){
+    //                 alert("<?php echo $this->jsQuoteEscape($this->__('Server Error. Please try again.')) ?>");
+    //                 $('review-please-wait').hide();
+    //             }
+    //         });
+        return false;
+    }
 function deleteApprovedImage(id) {
     new Ajax.Request("<?php echo $this->getUrl('instagramconnect/adminhtml_instagramconnect/deleteApproved'); ?>", {
                 parameters: {

@@ -34,8 +34,9 @@
     $collectionApproved =  Mage::getModel('instagramconnect/instagramimage')->getCollection()
                         ->addFilter('is_approved', 1)
                         ->addFilter('is_visible', 1)
-                        ->addFilter('product_instagram',$productId);
-
+                        ->setOrder('image_id', 'DESC');
+                        //->addFilter('product_instagram',$productId);
+    $productInstagram = array();                    
 ?>
 <?php if(count($collectionApproved) && $helper->showImagesOnProductPage() && $helper->isEnabled()): ?>
 <div class="block block-instagram block-related ">
@@ -47,15 +48,20 @@
         <ol class="mini-products-list" id="block-related">
         <?php $i = 0; ?>
         <?php foreach($collectionApproved as $_item): ?>
-            <?php if($i == $limitProduct && !$checkLimit) : break; endif; ?>
-            <li class="item">
-                <h3><?php echo $_item->getTag() ?></h3>
-                <div class="product">
-                    <a target="_blank" href="<?php echo $_item->getLinkInstagram() ?>" title="<?php echo $_item->getTag()?>" class="product-image"><img src="<?php echo $_item->getStandardResolutionUrl() ?>" width="90" height="90" alt="<?php echo $this->htmlEscape($_item->getTag()) ?>" /></a>
-                    
-                </div>
-            </li>
-            <?php $i++; ?>
+            <?php 
+                $productInstagram = explode(',',$_item->getProductInstagram());
+                if(in_array($productId, $productInstagram)): 
+            ?>
+                    <?php if($i == $limitProduct && !$checkLimit) : break; endif; ?>
+                    <li class="item">
+                        <h3><?php echo $_item->getTag() ?></h3>
+                        <div class="product">
+                            <a target="_blank" href="<?php echo $_item->getLinkInstagram() ?>" title="<?php echo $_item->getTag()?>" class="product-image"><img src="<?php echo $_item->getStandardResolutionUrl() ?>" width="90" height="90" alt="<?php echo $this->htmlEscape($_item->getTag()) ?>" /></a>
+                            
+                        </div>
+                    </li>
+                    <?php $i++; ?>
+            <?php endif; ?>
         <?php endforeach ?>
         </ol>
         <script type="text/javascript">decorateList('block-related', 'none-recursive')</script>
