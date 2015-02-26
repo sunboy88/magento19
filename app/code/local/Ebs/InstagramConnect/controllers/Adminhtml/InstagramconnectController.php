@@ -71,6 +71,8 @@ class Ebs_InstagramConnect_Adminhtml_InstagramconnectController extends Mage_Adm
     public function updateFilterAction()
     {
         //$this->loadLayout();
+        $productId = $this->getRequest()->getPost('proid');
+        //var_dump($productId);
         $dataHashtags = $this->getRequest()->getPost('hashtags');
         $numUpdate = (int)$this->getRequest()->getPost('numupdate');
         if($numUpdate > 20){
@@ -87,12 +89,12 @@ class Ebs_InstagramConnect_Adminhtml_InstagramconnectController extends Mage_Adm
             Mage::getSingleton('adminhtml/session')->addError($message);
         }else{
             $collectionImages = Mage::getModel('instagramconnect/instagramimage')->getCollection()
-                                ->addFilter('is_approved', 0)
+                                //->addFilter('is_approved', 0)
                                 ->addFilter('tag', $hashtags)
                                 ->setOrder('image_id', 'DESC')
                                 ->addFilter('is_visible', 1);
                                 //->setPageSize($numUpdate);
-
+            $productInstagram = array();                    
             $html = '';
             $max = count($collectionImages);
             if($max > 20){
@@ -113,6 +115,7 @@ class Ebs_InstagramConnect_Adminhtml_InstagramconnectController extends Mage_Adm
             $checkDiv = 0;
             $numberPage = 0;
             foreach ($collectionImages as $image){
+                $productInstagram = explode(',',$image->getProductInstagram());
                 $count++;
                 if($max > 20){
                     if($count==1){
@@ -132,7 +135,10 @@ class Ebs_InstagramConnect_Adminhtml_InstagramconnectController extends Mage_Adm
                         $html.= '<p>'.Mage::helper('core')->escapeHtml($image->getTag()).'</p>';
                         $html.= '<img src="'. $image->getThumbnailUrl().'" />';
                         $html.= '<br>';
-                        $html.= ' <a style="float:left;" onclick="return approveImage(\''.$image->getImageId().'\');" href="javascript:void(0);">Approve</a>';
+                        //var_dump(in_array($productId, $productInstagram));
+                        if(!in_array($productId, $productInstagram)){
+                            $html.= ' <a style="float:left;" onclick="return approveImage(\''.$image->getImageId().'\');" href="javascript:void(0);">Approve</a>';
+                        }
                         $html.= '<a style="float:right;" onclick="return deleteImage(\''. $image->getImageId().'\');" href="javascript:void(0);">Hide</a>';
                         $html.= '</div>';
                     if($checkDiv && ($count/20 == $numberPage) || $count == $max ){
@@ -149,7 +155,10 @@ class Ebs_InstagramConnect_Adminhtml_InstagramconnectController extends Mage_Adm
                         $html.= '<p>'.Mage::helper('core')->escapeHtml($image->getTag()).'</p>';
                         $html.= '<img src="'. $image->getThumbnailUrl().'" />';
                         $html.= '<br>';
-                        $html.= ' <a style="float:left;" onclick="return approveImage(\''.$image->getImageId().'\');" href="javascript:void(0);">Approve</a>';
+                        //var_dump(in_array($productId, $productInstagram));
+                        if(!in_array($productId, $productInstagram)){
+                            $html.= ' <a style="float:left;" onclick="return approveImage(\''.$image->getImageId().'\');" href="javascript:void(0);">Approve</a>';
+                        }
                         $html.= '<a style="float:right;" onclick="return deleteImage(\''. $image->getImageId().'\');" href="javascript:void(0);">Hide</a>';
                         $html.= '</div>';
                     $html.= '</div>';
@@ -181,9 +190,9 @@ class Ebs_InstagramConnect_Adminhtml_InstagramconnectController extends Mage_Adm
                         ->setOrder('image_id', 'DESC');
                         //->addFilter('product_instagram',$productId);
         $productInstagram = array();
+        $html = '';
         foreach ($collectionApproved as $image){
             $productInstagram = explode(',',$image->getProductInstagram());
-            //var_dump($productInstagram);die('dd');
             if(in_array($productId, $productInstagram)){
                 $html.= '<div class="item" id="'.$image->getImageId().'" style="width:150px;margin:10px; text-align:center; float:left;">';
                 $html.= '<img src="'.$image->getThumbnailUrl().'" />';

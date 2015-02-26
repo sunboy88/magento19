@@ -157,8 +157,8 @@ class Ebs_InstagramConnect_Helper_Image extends Mage_Core_Helper_Abstract
 				$systemId              = $item->id;
 				$linkInstagram         = $item->link;
 				$image = Mage::getModel('instagramconnect/instagramimage');
-
-				$image->setStandardResolutionUrl($standardResolutionUrl)
+				if($image->getIsApproved()=='0'){
+					$image->setStandardResolutionUrl($standardResolutionUrl)
 					->setLowResolutionUrl($lowResolutionUrl)
 					->setThumbnailUrl($thumbnailUrl)
 					->setImageId($systemId)
@@ -167,7 +167,20 @@ class Ebs_InstagramConnect_Helper_Image extends Mage_Core_Helper_Abstract
 					->setTag($tag)
 					->setLinkInstagram($linkInstagram)
 					->setProductInstagram(0)
+					->save();	
+				}else{
+					$image->setStandardResolutionUrl($standardResolutionUrl)
+					->setLowResolutionUrl($lowResolutionUrl)
+					->setThumbnailUrl($thumbnailUrl)
+					->setImageId($systemId)
+					->setUsername($username)
+					->setCaptionText($captionText)
+					->setTag($tag)
+					->setLinkInstagram($linkInstagram)
+					//->setProductInstagram(0)
 					->save();
+				}
+				
 			}
 			
 
