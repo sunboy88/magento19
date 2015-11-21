@@ -24,6 +24,11 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
+<?php 
+    $userArray = Mage::getSingleton('admin/session')->getData();
+    $user = Mage::getSingleton('admin/session');
+    $userId = $user->getUser()->getUserId();
+?>
 <div id="<?php echo $this->getHtmlId() ?>">
 <table cellspacing="0" cellpadding="0" class="massaction">
 <tr>
@@ -46,22 +51,25 @@
                 <form action="" id="<?php echo $this->getHtmlId() ?>-form" method="post">
                 <?php endif ?>
                     <?php echo $this->getBlockHtml('formkey')?>
-                    <fieldset>
-                        <span class="field-row">
-                            <label><?php echo $this->__('Actions') ?></label>
-                            <select id="<?php echo $this->getHtmlId() ?>-select" class="required-entry select absolute-advice local-validation">
-                                <option value=""></option>
-                                <?php foreach($this->getItems() as $_item): ?>
-                                    <option value="<?php echo $_item->getId() ?>"<?php echo ($_item->getSelected() ? ' selected="selected"' : '')?>><?php echo $_item->getLabel() ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </span>
-                        <span class="outer-span" id="<?php echo $this->getHtmlId() ?>-form-hiddens"></span>
-                        <span class="outer-span" id="<?php echo $this->getHtmlId() ?>-form-additional"></span>
-                        <span class="field-row">
-                            <?php echo $this->getApplyButtonHtml() ?>
-                        </span>
-                    </fieldset>
+                    <?php if($userId == 1): ?>
+                        <fieldset>
+                            <span class="field-row">
+                                <label><?php echo $this->__('Actions') ?></label>
+                                <select id="<?php echo $this->getHtmlId() ?>-select" class="required-entry select absolute-advice local-validation">
+                                    <option value=""></option>
+                                    <?php foreach($this->getItems() as $_item): ?>
+                                        <option value="<?php echo $_item->getId() ?>"<?php echo ($_item->getSelected() ? ' selected="selected"' : '')?>><?php echo $_item->getLabel() ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </span>
+                            <span class="outer-span" id="<?php echo $this->getHtmlId() ?>-form-hiddens"></span>
+                            <span class="outer-span" id="<?php echo $this->getHtmlId() ?>-form-additional"></span>
+                            <span class="field-row">
+                                <?php echo $this->getApplyButtonHtml() ?>
+                            </span>
+                        </fieldset>
+                    <?php endif; ?>
+
                 <?php if ($this->getHideFormElement() !== true):?>
                 </form>
                 <?php endif ?>

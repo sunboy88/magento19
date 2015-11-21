@@ -1,0 +1,49 @@
+<?php
+/**
+ * @project     SocialLogin
+ * @package     LitExtension_SocialLogin
+ * @author      LitExtension
+ * @email       litextension@gmail.com
+ */
+?>
+<?php
+$currentUrl = Mage::helper('core/url')->getCurrentUrl();
+$block = new LitExtension_SocialLogin_Block_Button();
+$checkAuto = 0;
+if(Mage::getStoreConfig('le_sociallogin/facebook/autologin')){
+    $checkAuto = 1;
+}
+if (Mage::getStoreConfig('le_sociallogin/general/showonloginpage') == 'inloginbox') {
+    $pos = strpos($currentUrl,'customer/account/login');
+    if($pos !== false) {
+        if ($this->checkEnable() == true):?>
+            <a onload="alert('1');showLESocialPopup('<?php echo $this->_getButtonUrl(); ?>', <?php echo $this->getWidth(); ?>, <?php echo $this->getHeight(); ?>);" onclick="showLESocialPopup('<?php echo $this->_getButtonUrl(); ?>', <?php echo $this->getWidth(); ?>, <?php echo $this->getHeight(); ?>);">
+                <div class="<?php echo $this->getClass(); ?> le-icon-social"
+                     title="<?php echo $this->__('Connect with ') . $this->__($this->getTitle()); ?>"></div>
+            </a>
+        <?php endif;
+    } else {
+        if ($this->checkEnable() == true):?>
+            <button class="<?php echo $this->getClass(); ?> le-icon-social"
+                    title="<?php echo $this->__('Connect with ') . $this->__($this->getTitle()); ?>" onload="showLESocialPopup('<?php echo $this->_getButtonUrl(); ?>', <?php echo $this->getWidth(); ?>, <?php echo $this->getHeight(); ?>);"
+                    onclick="showLESocialPopup('<?php echo $this->_getButtonUrl(); ?>', <?php echo $this->getWidth(); ?>, <?php echo $this->getHeight(); ?>);"></button>
+        <?php endif;
+    }
+?>
+<script type="text/javascript">
+    var checkAuto = '<?php echo $checkAuto ?>';
+    if(checkAuto == '1'){
+       showLESocialPopup('<?php echo $this->_getButtonUrl(); ?>', '<?php echo $this->getWidth(); ?>', '<?php echo $this->getHeight(); ?>'); 
+    }
+    
+</script>
+<?php
+} else {
+    if ($this->checkEnable() == true):?>
+        <button class="<?php echo $this->getClass(); ?> le-icon-social"
+                title="<?php echo $this->__('Connect with ') . $this->__($this->getTitle()); ?>"
+                onclick="showLESocialPopup('<?php echo $this->_getButtonUrl(); ?>', <?php echo $this->getWidth(); ?>, <?php echo $this->getHeight(); ?>);"></button>
+    <?php endif;
+}
+?>
+

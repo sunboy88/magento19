@@ -29,12 +29,19 @@
  * @see Mage_Adminhtml_Block_Catalog_Product
  */
 ?>
+<?php 
+    $userArray = Mage::getSingleton('admin/session')->getData();
+    $user = Mage::getSingleton('admin/session');
+    $userId = $user->getUser()->getUserId();
+?>
 <div class="content-header">
 <table cellspacing="0">
     <tr>
         <td style="width:50%;"><h3 class="icon-head head-products"><?php echo Mage::helper('catalog')->__('Manage Products') ?></h3></td>
         <td class="a-right">
-            <?php echo $this->getButtonsHtml() ?>
+        	<?php if($userId == 1): ?> 
+            	<?php echo $this->getButtonsHtml() ?>
+        	<?php endif; ?>
         </td>
     </tr>
 </table>

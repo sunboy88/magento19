@@ -196,7 +196,7 @@
         <input type="hidden" name="billing[use_for_shipping]" value="1" />
     <?php endif; ?>
     <div class="buttons-set" id="billing-buttons-container">
-        <button type="button" title="<?php echo $this->__('Continue') ?>" class="button" onclick="billing.save()"><span><span><?php echo $this->__('Continue') ?></span></span></button>
+        <button type="button" title="<?php echo $this->__('Continue') ?>" class="button" onclick="billing.save();sameAsShipping();"><span><span><?php echo $this->__('Continue') ?></span></span></button>
         <span class="please-wait" id="billing-please-wait" style="display:none;">
             <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="<?php echo $this->__('Loading next step...') ?>" title="<?php echo $this->__('Loading next step...') ?>" class="v-middle" /> <?php echo $this->__('Loading next step...') ?>
         </span>
@@ -223,6 +223,85 @@
                 }
             }
         });
+    }
+
+    var countryId = $('billing:country_id').getValue();
+    var regionId = $('billing:region_id').getValue();
+    var cityId = $('billing:city').getValue();
+    
+    if(countryId == 'VN' && regionId != '' && cityId != ''){
+        updateBillingCity(regionId,cityId);
+    }
+    Event.observe($("billing:country_id"),'change', function(){
+        countryId = $('billing:country_id').getValue();
+    });
+    
+    Event.observe($("billing:region_id"),'change', function(){
+
+        regionId = $('billing:region_id').getValue();
+        if(countryId == 'VN'){
+            updateBillingCity(regionId,cityId);
+        }
+    });
+
+    Event.observe($("billing-address-select"),'change', function(){
+        var newAddress = $('billing-address-select').getValue();
+        if(newAddress == ''){
+            updateBillingCity(regionId,cityId);
+        }
+    });
+    
+    function sameAsShipping(){
+        if($('billing:use_for_shipping_yes').getValue() == 1){
+            countryId = $('billing:country_id').getValue();
+            regionId = $('billing:region_id').getValue();
+            if(countryId == 'VN'){
+                updateShippingCity(regionId,cityId);
+            }
+        }    
+    }
+    
+    
+    function updateBillingCity(regionId,cityId){
+        alert(cityId);
+        new Ajax.Request("<?php echo $this->getUrl('shippingcity/city/listBilling'); ?>", {
+                parameters: {
+                    regionId: regionId,
+                    cityId : cityId,
+                    method: 'POST'
+                },
+                onSuccess: function(transport) {
+
+                    try{
+                        response = eval('(' + transport.responseText + ')');
+                        
+                    } catch (e) {
+                        response = {};
+                    }
+                    if (response.err) {
+                         alert("Can not get list City");
+                    }
+                    if (response.success) {
+                        $('billing:city').replace(response.data);
+                       // alert(response.data);
+                    } else {
+                        var msg = response.error_messages;
+                        if (typeof(msg)=='object') {
+                            msg = msg.join("\n");
+                        }
+                        if (msg) {
+                            alert(msg);
+                            return;
+                        }
+                    }
+                   // alert("Unknown Error. Please try again later.");
+                    return;
+                },
+                onFailure: function(){
+                    alert("Can not get list City");
+                }
+            });
+            return false;
     }
 //]]>
 </script>

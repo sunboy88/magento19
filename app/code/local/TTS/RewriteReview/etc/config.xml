@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <TTS_RewriteReview>
+      <version>0.1.0</version>
+    </TTS_RewriteReview>
+  </modules>
+ <!--  <frontend>
+    <routers>
+      <rewritereview>
+        <use>standard</use>
+          <args>
+            <module>TTS_RewriteReview</module>
+            <frontName>rewritereview</frontName>
+          </args>
+      </rewritereview>
+    </routers>
+  </frontend> -->
+  <global>
+    <helpers>
+      <rewritereview>
+        <class>TTS_RewriteReview_Helper</class>
+      </rewritereview>
+    </helpers>
+  </global>
+ <!--  <admin>
+	<routers>
+	  <rewritereview>
+	    <use>admin</use>
+		<args>
+		  <module>TTS_RewriteReview</module>
+		  <frontName>admin_rewritereview</frontName>
+		</args>
+	  </rewritereview>
+	</routers>
+
+  </admin> -->
+  <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <TTS_RewriteReview before="Mage_Adminhtml">TTS_RewriteReview_Adminhtml
+                        </TTS_RewriteReview>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+</config> 

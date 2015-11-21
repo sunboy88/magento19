@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Acegento_Ratingfilter>
+            <active>false</active>
+            <codePool>community</codePool>
+        </Acegento_Ratingfilter>
+    </modules>
+</config> 

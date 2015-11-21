@@ -162,5 +162,66 @@
 //<![CDATA[
     var dataForm = new VarienForm('form-validate', true);
     new RegionUpdater('country', 'region', 'region_id', <?php echo $this->helper('directory')->getRegionJson() ?>, undefined, 'zip');
+
+    var countryId = $('country').getValue();
+    var regionId = $('region_id').getValue();
+    var cityId = $('city').getValue();
+
+    if(countryId == 'VN' && regionId != '' && cityId != ''){
+        updateShippingCity(regionId,cityId)
+    }
+    Event.observe($("country"),'change', function(){
+        countryId = $('country').getValue();
+    });
+    
+    Event.observe($("region_id"),'change', function(){
+
+        regionId = $('region_id').getValue();
+        if(countryId == 'VN'){
+            updateShippingCity(regionId,cityId);
+        }
+    });
+    
+    
+    function updateShippingCity(regionId,cityId){
+        new Ajax.Request("<?php echo $this->getUrl('shippingcity/city/listCityAccount'); ?>", {
+                parameters: {
+                    regionId: regionId,
+                    cityId : cityId,
+                    method: 'POST'
+                },
+                onSuccess: function(transport) {
+
+                    try{
+                        response = eval('(' + transport.responseText + ')');
+                        
+                    } catch (e) {
+                        response = {};
+                    }
+                    if (response.err) {
+                         alert("Can not get list City");
+                    }
+                    if (response.success) {
+                        $('city').replace(response.data);
+                       // alert(response.data);
+                    } else {
+                        var msg = response.error_messages;
+                        if (typeof(msg)=='object') {
+                            msg = msg.join("\n");
+                        }
+                        if (msg) {
+                            alert(msg);
+                            return;
+                        }
+                    }
+                   // alert("Unknown Error. Please try again later.");
+                    return;
+                },
+                onFailure: function(){
+                    alert("Can not get list City");
+                }
+            });
+            return false;
+    }
 //]]>
 </script>

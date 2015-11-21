@@ -153,5 +153,73 @@
     $('shipping-address-select') && shipping.newAddress(!$('shipping-address-select').value);
 
     var shippingRegionUpdater = new RegionUpdater('shipping:country_id', 'shipping:region', 'shipping:region_id', <?php echo $this->helper('directory')->getRegionJson() ?>, undefined, 'shipping:postcode');
+
+    var countryId = $('shipping:country_id').getValue();
+    var regionId = $('shipping:region_id').getValue();
+    var cityId = $('shipping:city').getValue();
+
+    if(countryId == 'VN' && regionId != '' && cityId != ''){
+        updateShippingCity(regionId,cityId)
+    }
+    Event.observe($("shipping:country_id"),'change', function(){
+        countryId = $('shipping:country_id').getValue();
+    });
+    
+    Event.observe($("shipping:region_id"),'change', function(){
+
+        regionId = $('shipping:region_id').getValue();
+        if(countryId == 'VN'){
+            updateShippingCity(regionId,cityId);
+        }
+    });
+    
+    Event.observe($("shipping-address-select"),'change', function(){
+        var newAddress = $('shipping-address-select').getValue();
+        if(newAddress == ''){
+            updateShippingCity(regionId,cityId);
+        }
+    });
+    
+    
+    function updateShippingCity(regionId,cityId){
+        new Ajax.Request("<?php echo $this->getUrl('shippingcity/city/listShipping'); ?>", {
+                parameters: {
+                    regionId: regionId,
+                    cityId : cityId,
+                    method: 'POST'
+                },
+                onSuccess: function(transport) {
+
+                    try{
+                        response = eval('(' + transport.responseText + ')');
+                        
+                    } catch (e) {
+                        response = {};
+                    }
+                    if (response.err) {
+                         alert("Can not get list City");
+                    }
+                    if (response.success) {
+                        $('shipping:city').replace(response.data);
+                       // alert(response.data);
+                    } else {
+                        var msg = response.error_messages;
+                        if (typeof(msg)=='object') {
+                            msg = msg.join("\n");
+                        }
+                        if (msg) {
+                            alert(msg);
+                            return;
+                        }
+                    }
+                   // alert("Unknown Error. Please try again later.");
+                    return;
+                },
+                onFailure: function(){
+                    alert("Can not get list City");
+                }
+            });
+            return false;
+    }
 //]]>
 </script>
